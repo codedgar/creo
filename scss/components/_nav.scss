@@ -1,0 +1,498 @@
+@use "sass:map";
+// =============================================================================
+// Navigation Component
+// =============================================================================
+//
+// Flexible navigation component for headers, primary navigation, and mobile menus.
+// Supports various layouts: standard, centered, transparent, sticky.
+//
+// Usage:
+// <nav class="c-nav">
+//   <div class="c-nav__container">
+//     <a href="#" class="c-nav__brand">Brand</a>
+//     <ul class="c-nav__menu">
+//       <li class="c-nav__item">
+//         <a href="#" class="c-nav__link">Features</a>
+//       </li>
+//     </ul>
+//     <div class="c-nav__actions">
+//       <a href="#" class="c-button c-button--primary">Sign Up</a>
+//     </div>
+//   </div>
+// </nav>
+//
+// Note: Requires button component for CTA buttons
+
+@use '../core/tokens' as *;
+
+// Navigation Component Tokens
+$nav-height: 4rem !default;
+$nav-padding-y: 1rem !default;
+$nav-padding-x: map.get($creo-spacing, 'md') !default;
+$nav-background: white !default;
+$nav-border-width: 1px !default;
+$nav-border-color: map.get($creo-colors, 'neutral-50') !default;
+$nav-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !default;
+$nav-z-index: 1000 !default;
+
+// Navigation Typography
+$nav-font-size: 1rem !default;
+$nav-font-weight: 500 !default;
+$nav-link-color: map.get($creo-colors, 'primary') !default;
+$nav-link-hover-color: map.get($creo-colors, 'accent') !default;
+
+// Brand/Logo
+$nav-brand-font-size: 1.5rem !default;
+$nav-brand-font-weight: 700 !default;
+
+// Mobile breakpoint
+$nav-mobile-breakpoint: 968px !default;
+
+// =============================================================================
+// Base Navigation
+// =============================================================================
+
+.c-nav {
+  position: relative;
+  background-color: $nav-background;
+  border-bottom: $nav-border-width solid $nav-border-color;
+  box-shadow: $nav-shadow;
+  z-index: $nav-z-index;
+}
+
+// Navigation Container
+.c-nav__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $nav-padding-y $nav-padding-x;
+  min-height: $nav-height;
+}
+
+// =============================================================================
+// Brand/Logo
+// =============================================================================
+
+.c-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: $nav-brand-font-size;
+  font-weight: $nav-brand-font-weight;
+  color: map.get($creo-colors, 'primary');
+  text-decoration: none;
+  flex-shrink: 0;
+
+  &:hover {
+    color: map.get($creo-colors, 'accent');
+  }
+
+  // Logo image support
+  img {
+    height: 2rem;
+    width: auto;
+  }
+}
+
+// =============================================================================
+// Navigation Menu
+// =============================================================================
+
+.c-nav__menu {
+  display: flex;
+  align-items: center;
+  gap: map.get($creo-spacing, 'lg');
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  // Hide on mobile by default
+  @media (max-width: $nav-mobile-breakpoint) {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: $nav-background;
+    border-top: $nav-border-width solid $nav-border-color;
+    box-shadow: $nav-shadow;
+    flex-direction: column;
+    padding: map.get($creo-spacing, 'md');
+    gap: 0;
+  }
+}
+
+.c-nav__item {
+  position: relative;
+}
+
+.c-nav__link {
+  display: block;
+  padding: 0.5rem 0;
+  font-size: $nav-font-size;
+  font-weight: $nav-font-weight;
+  color: $nav-link-color;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+
+  &:hover,
+  &:focus {
+    color: $nav-link-hover-color;
+  }
+
+  // Active state
+  &[aria-current="page"],
+  &.is-active {
+    color: $nav-link-hover-color;
+    font-weight: 600;
+  }
+
+  // Mobile styles
+  @media (max-width: $nav-mobile-breakpoint) {
+    padding: map.get($creo-spacing, 'sm') 0;
+    border-bottom: 1px solid rgba(map.get($creo-colors, 'neutral-50'), 0.5);
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
+
+// =============================================================================
+// Navigation Actions (CTA buttons)
+// =============================================================================
+
+.c-nav__actions {
+  display: flex;
+  align-items: center;
+  gap: map.get($creo-spacing, 'sm');
+  flex-shrink: 0;
+
+  @media (max-width: $nav-mobile-breakpoint) {
+    .c-button {
+      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+}
+
+// =============================================================================
+// Mobile Menu Toggle
+// =============================================================================
+
+.c-nav__toggle {
+  display: none;
+  flex-direction: column;
+  gap: 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  z-index: $nav-z-index + 1;
+
+  @media (max-width: $nav-mobile-breakpoint) {
+    display: flex;
+  }
+
+  // Hamburger lines
+  span {
+    display: block;
+    width: 1.5rem;
+    height: 2px;
+    background-color: map.get($creo-colors, 'primary');
+    transition: all 0.3s ease-in-out;
+    transform-origin: center;
+  }
+
+  // Active state (X icon)
+  &.is-active {
+    span:nth-child(1) {
+      transform: rotate(45deg) translate(0.4rem, 0.4rem);
+    }
+    span:nth-child(2) {
+      opacity: 0;
+    }
+    span:nth-child(3) {
+      transform: rotate(-45deg) translate(0.4rem, -0.4rem);
+    }
+  }
+}
+
+// Show menu when toggle is active
+.c-nav__toggle.is-active + .c-nav__menu {
+  @media (max-width: $nav-mobile-breakpoint) {
+    display: flex;
+  }
+}
+
+// Alternative: CSS-only mobile menu (using checkbox hack)
+.c-nav__menu-checkbox {
+  display: none;
+}
+
+.c-nav__menu-checkbox:checked ~ .c-nav__menu {
+  @media (max-width: $nav-mobile-breakpoint) {
+    display: flex;
+  }
+}
+
+.c-nav__menu-checkbox:checked ~ .c-nav__toggle {
+  span:nth-child(1) {
+    transform: rotate(45deg) translate(0.4rem, 0.4rem);
+  }
+  span:nth-child(2) {
+    opacity: 0;
+  }
+  span:nth-child(3) {
+    transform: rotate(-45deg) translate(0.4rem, -0.4rem);
+  }
+}
+
+// =============================================================================
+// Navigation Modifiers
+// =============================================================================
+
+// Transparent navigation
+.c-nav--transparent {
+  background-color: transparent;
+  border-bottom: none;
+  box-shadow: none;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+  .c-nav__brand,
+  .c-nav__link {
+    color: white;
+  }
+
+  .c-nav__link:hover,
+  .c-nav__link:focus,
+  .c-nav__link[aria-current="page"],
+  .c-nav__link.is-active {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .c-nav__toggle span {
+    background-color: white;
+  }
+
+  @media (max-width: $nav-mobile-breakpoint) {
+    .c-nav__menu {
+      background-color: white;
+      border-top-color: $nav-border-color;
+    }
+
+    .c-nav__link {
+      color: $nav-link-color;
+    }
+  }
+}
+
+// Sticky navigation
+.c-nav--sticky {
+  position: sticky;
+  top: 0;
+}
+
+// Fixed navigation
+.c-nav--fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+// Large navigation (taller)
+.c-nav--large {
+  .c-nav__container {
+    min-height: $nav-height * 1.5;
+    padding-top: $nav-padding-y * 1.5;
+    padding-bottom: $nav-padding-y * 1.5;
+  }
+}
+
+// Compact navigation (shorter)
+.c-nav--compact {
+  .c-nav__container {
+    min-height: $nav-height * 0.75;
+    padding-top: $nav-padding-y * 0.5;
+    padding-bottom: $nav-padding-y * 0.5;
+  }
+}
+
+// Centered navigation layout
+.c-nav--centered {
+  .c-nav__container {
+    justify-content: center;
+    text-align: center;
+    flex-wrap: wrap;
+    gap: map.get($creo-spacing, 'lg');
+  }
+
+  .c-nav__brand {
+    order: -1;
+    flex-basis: 100%;
+  }
+
+  .c-nav__menu {
+    order: 0;
+  }
+
+  .c-nav__actions {
+    order: 1;
+  }
+
+  @media (max-width: $nav-mobile-breakpoint) {
+    .c-nav__container {
+      justify-content: space-between;
+      flex-wrap: nowrap;
+    }
+
+    .c-nav__brand {
+      order: 0;
+      flex-basis: auto;
+    }
+  }
+}
+
+// Dark navigation theme
+.c-nav--dark {
+  background-color: map.get($creo-colors, 'primary');
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+
+  .c-nav__brand,
+  .c-nav__link {
+    color: white;
+  }
+
+  .c-nav__link:hover,
+  .c-nav__link:focus,
+  .c-nav__link[aria-current="page"],
+  .c-nav__link.is-active {
+    color: map.get($creo-colors, 'accent');
+  }
+
+  .c-nav__toggle span {
+    background-color: white;
+  }
+
+  @media (max-width: $nav-mobile-breakpoint) {
+    .c-nav__menu {
+      background-color: map.get($creo-colors, 'primary');
+      border-top-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+// Bordered navigation (no shadow, just border)
+.c-nav--bordered {
+  box-shadow: none;
+  border-bottom-width: 2px;
+}
+
+// Full-width navigation (no container)
+.c-nav--full {
+  .c-nav__container {
+    max-width: none;
+    padding-left: map.get($creo-spacing, 'lg');
+    padding-right: map.get($creo-spacing, 'lg');
+  }
+}
+
+// =============================================================================
+// Dropdown Support (CSS-only)
+// =============================================================================
+
+.c-nav__dropdown {
+  position: relative;
+
+  .c-nav__dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    border: 1px solid $nav-border-color;
+    border-radius: 0.375rem;
+    box-shadow: $nav-shadow;
+    min-width: 12rem;
+    padding: 0.5rem 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-0.5rem);
+    transition: all 0.2s ease-in-out;
+    z-index: $nav-z-index + 1;
+  }
+
+  &:hover .c-nav__dropdown-menu,
+  .c-nav__link:focus + .c-nav__dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .c-nav__dropdown-item {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: $nav-link-color;
+    text-decoration: none;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover,
+    &:focus {
+      background-color: rgba(map.get($creo-colors, 'accent'), 0.1);
+      color: $nav-link-hover-color;
+    }
+  }
+
+  // Dropdown arrow indicator
+  .c-nav__link::after {
+    content: '';
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 0.5rem;
+    border-left: 0.25rem solid transparent;
+    border-right: 0.25rem solid transparent;
+    border-top: 0.25rem solid currentColor;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  &:hover .c-nav__link::after {
+    transform: rotate(180deg);
+  }
+
+  // Hide dropdowns on mobile
+  @media (max-width: $nav-mobile-breakpoint) {
+    .c-nav__dropdown-menu {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      box-shadow: none;
+      border: none;
+      background: none;
+      padding-left: 1rem;
+    }
+
+    .c-nav__dropdown-item {
+      padding: 0.25rem 0;
+      font-size: 0.875rem;
+      border-bottom: 1px solid rgba(map.get($creo-colors, 'neutral-50'), 0.3);
+    }
+  }
+}
+
+// =============================================================================
+// Utility Classes
+// =============================================================================
+
+// Hide navigation on print
+@media print {
+  .c-nav {
+    display: none;
+  }
+}

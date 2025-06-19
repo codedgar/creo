@@ -1,0 +1,392 @@
+// =============================================================================
+// Creo Text Utilities
+// =============================================================================
+// Typography and text styling utility classes
+// Part of Creo CSS Framework - utilities/_text.scss
+
+@use 'sass:map';
+@use '../core/tokens' as tokens;
+
+// =============================================================================
+// Helper Functions
+// =============================================================================
+
+// Handle problematic color names that conflict with CSS keywords
+@function safe-class-name($name) {
+  @if $name == black {
+    @return "black";
+  } @else if $name == white {
+    @return "white";
+  } @else {
+    @return $name;
+  }
+}
+
+// =============================================================================
+// Font Weight Utilities
+// =============================================================================
+
+@each $weight-name, $weight-value in tokens.$creo-font-weights {
+  $safe-name: safe-class-name($weight-name);
+  
+  .u-font-#{$safe-name} {
+    font-weight: $weight-value !important;
+  }
+}
+
+// Responsive font weights
+@each $breakpoint, $value in tokens.$creo-breakpoints {
+  @if $value > 0 {
+    @media (min-width: $value) {
+      @each $weight-name, $weight-value in tokens.$creo-font-weights {
+        $safe-name: safe-class-name($weight-name);
+        
+        .u-#{$breakpoint}\:font-#{$safe-name} {
+          font-weight: $weight-value !important;
+        }
+      }
+    }
+  }
+}
+
+// =============================================================================
+// Font Size Utilities
+// =============================================================================
+
+@each $size-name, $size-value in tokens.$creo-font-sizes {
+  .u-text-#{$size-name} {
+    font-size: $size-value !important;
+  }
+}
+
+// Responsive font sizes
+@each $breakpoint, $value in tokens.$creo-breakpoints {
+  @if $value > 0 {
+    @media (min-width: $value) {
+      @each $size-name, $size-value in tokens.$creo-font-sizes {
+        .u-#{$breakpoint}\:text-#{$size-name} {
+          font-size: $size-value !important;
+        }
+      }
+    }
+  }
+}
+
+// =============================================================================
+// Line Height Utilities
+// =============================================================================
+
+@each $height-name, $height-value in tokens.$creo-line-heights {
+  .u-leading-#{$height-name} {
+    line-height: $height-value !important;
+  }
+}
+
+// Responsive line heights
+@each $breakpoint, $value in tokens.$creo-breakpoints {
+  @if $value > 0 {
+    @media (min-width: $value) {
+      @each $height-name, $height-value in tokens.$creo-line-heights {
+        .u-#{$breakpoint}\:leading-#{$height-name} {
+          line-height: $height-value !important;
+        }
+      }
+    }
+  }
+}
+
+// =============================================================================
+// Text Color Utilities
+// =============================================================================
+
+@each $color-name, $color-value in tokens.$creo-colors {
+  $safe-name: safe-class-name($color-name);
+  
+  .u-text-#{$safe-name} {
+    color: $color-value !important;
+  }
+}
+
+// Semantic text colors
+.u-text-primary { color: tokens.$creo-color-text-primary !important; }
+.u-text-secondary { color: tokens.$creo-color-text-secondary !important; }
+.u-text-muted { color: tokens.$creo-color-text-muted !important; }
+.u-text-heading { color: tokens.$creo-color-text-heading !important; }
+.u-text-inverse { color: tokens.$creo-color-text-inverse !important; }
+
+// Link colors
+.u-text-link { color: tokens.$creo-color-link !important; }
+.u-text-link-hover { color: tokens.$creo-color-link-hover !important; }
+
+// =============================================================================
+// Text Alignment Utilities
+// =============================================================================
+
+.u-text-left { text-align: left !important; }
+.u-text-center { text-align: center !important; }
+.u-text-right { text-align: right !important; }
+.u-text-justify { text-align: justify !important; }
+
+// Responsive text alignment
+@each $breakpoint, $value in tokens.$creo-breakpoints {
+  @if $value > 0 {
+    @media (min-width: $value) {
+      .u-#{$breakpoint}\:text-left { text-align: left !important; }
+      .u-#{$breakpoint}\:text-center { text-align: center !important; }
+      .u-#{$breakpoint}\:text-right { text-align: right !important; }
+      .u-#{$breakpoint}\:text-justify { text-align: justify !important; }
+    }
+  }
+}
+
+// =============================================================================
+// Text Transform Utilities
+// =============================================================================
+
+.u-uppercase { text-transform: uppercase !important; }
+.u-lowercase { text-transform: lowercase !important; }
+.u-capitalize { text-transform: capitalize !important; }
+.u-normal-case { text-transform: none !important; }
+
+// =============================================================================
+// Text Decoration Utilities
+// =============================================================================
+
+.u-underline { text-decoration: underline !important; }
+.u-overline { text-decoration: overline !important; }
+.u-line-through { text-decoration: line-through !important; }
+.u-no-underline { text-decoration: none !important; }
+
+// =============================================================================
+// Font Style Utilities
+// =============================================================================
+
+.u-italic { font-style: italic !important; }
+.u-not-italic { font-style: normal !important; }
+
+// =============================================================================
+// Font Family Utilities
+// =============================================================================
+
+.u-font-sans { font-family: tokens.$creo-font-family-base !important; }
+.u-font-mono { font-family: tokens.$creo-font-family-mono !important; }
+
+// =============================================================================
+// Letter Spacing Utilities
+// =============================================================================
+
+@each $spacing-name, $spacing-value in tokens.$creo-letter-spacing {
+  .u-tracking-#{$spacing-name} {
+    letter-spacing: $spacing-value !important;
+  }
+}
+
+// =============================================================================
+// Text Overflow Utilities
+// =============================================================================
+
+.u-truncate {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+.u-text-ellipsis { text-overflow: ellipsis !important; }
+.u-text-clip { text-overflow: clip !important; }
+
+// =============================================================================
+// Whitespace Utilities
+// =============================================================================
+
+.u-whitespace-normal { white-space: normal !important; }
+.u-whitespace-nowrap { white-space: nowrap !important; }
+.u-whitespace-pre { white-space: pre !important; }
+.u-whitespace-pre-line { white-space: pre-line !important; }
+.u-whitespace-pre-wrap { white-space: pre-wrap !important; }
+
+// =============================================================================
+// Word Break Utilities
+// =============================================================================
+
+.u-break-normal {
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+
+.u-break-words { overflow-wrap: break-word !important; }
+.u-break-all { word-break: break-all !important; }
+
+// =============================================================================
+// Vertical Alignment Utilities
+// =============================================================================
+
+.u-align-baseline { vertical-align: baseline !important; }
+.u-align-top { vertical-align: top !important; }
+.u-align-middle { vertical-align: middle !important; }
+.u-align-bottom { vertical-align: bottom !important; }
+.u-align-text-top { vertical-align: text-top !important; }
+.u-align-text-bottom { vertical-align: text-bottom !important; }
+
+// =============================================================================
+// Text Selection Utilities
+// =============================================================================
+
+.u-select-none {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+.u-select-text {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+
+.u-select-all {
+  -webkit-user-select: all !important;
+  -moz-user-select: all !important;
+  -ms-user-select: all !important;
+  user-select: all !important;
+}
+
+.u-select-auto {
+  -webkit-user-select: auto !important;
+  -moz-user-select: auto !important;
+  -ms-user-select: auto !important;
+  user-select: auto !important;
+}
+
+// =============================================================================
+// Semantic Text Utilities
+// =============================================================================
+
+// Large text for emphasis
+.u-text-large {
+  font-size: map.get(tokens.$creo-font-sizes, lg) !important;
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    font-size: map.get(tokens.$creo-font-sizes, xl) !important;
+  }
+}
+
+// Small text for captions, footnotes
+.u-text-small {
+  font-size: map.get(tokens.$creo-font-sizes, sm) !important;
+}
+
+// Display text for hero sections
+.u-text-display {
+  font-size: map.get(tokens.$creo-font-sizes, lg) !important;
+  font-weight: tokens.$creo-font-weight-bold !important;
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    font-size: map.get(tokens.$creo-font-sizes, xl) !important;
+  }
+}
+
+// =============================================================================
+// Accessibility Utilities
+// =============================================================================
+
+.u-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.u-not-sr-only {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+}
+
+// =============================================================================
+// List Style Utilities
+// =============================================================================
+
+.u-list-none { list-style-type: none !important; }
+.u-list-disc { list-style-type: disc !important; }
+.u-list-decimal { list-style-type: decimal !important; }
+
+.u-list-inside { list-style-position: inside !important; }
+.u-list-outside { list-style-position: outside !important; }
+
+// =============================================================================
+// Print Utilities
+// =============================================================================
+
+@media print {
+  .u-print-text-black { color: black !important; }
+  .u-print-text-white { color: white !important; }
+  
+  .u-print-hidden { display: none !important; }
+  .u-print-visible { display: block !important; }
+}
+
+// =============================================================================
+// Usage Examples & Documentation
+// =============================================================================
+
+/*
+Text Utility Usage Examples:
+
+Font Weights:
+<h1 class="u-font-bold">Bold heading</h1>
+<p class="u-font-normal">Normal text</p>
+<span class="u-font-light">Light text</span>
+
+Font Sizes:
+<h1 class="u-text-3xl">Large heading</h1>
+<p class="u-text-base">Base text</p>
+<small class="u-text-sm">Small text</small>
+
+Responsive Typography:
+<h1 class="u-text-2xl u-md:text-4xl u-lg:text-6xl">Responsive heading</h1>
+<p class="u-text-sm u-md:text-base">Responsive paragraph</p>
+
+Text Colors:
+<p class="u-text-primary">Primary color</p>
+<p class="u-text-muted">Muted text</p>
+<a class="u-text-link">Link color</a>
+
+Text Alignment:
+<div class="u-text-center">Centered text</div>
+<div class="u-text-left u-md:text-center">Responsive alignment</div>
+
+Text Transforms:
+<h2 class="u-uppercase">UPPERCASE HEADING</h2>
+<p class="u-capitalize">capitalized text</p>
+
+Line Heights:
+<p class="u-leading-tight">Tight line height</p>
+<p class="u-leading-relaxed">Relaxed line height</p>
+
+Text Decoration:
+<span class="u-underline">Underlined text</span>
+<a class="u-no-underline">Link without underline</a>
+
+Text Overflow:
+<div class="u-truncate">This text will be truncated with ellipsis...</div>
+
+Accessibility:
+<span class="u-sr-only">Screen reader only text</span>
+
+Semantic Utilities:
+<p class="u-text-large">Emphasized large text</p>
+<caption class="u-text-small">Table caption</caption>
+<h1 class="u-text-display">Hero display text</h1>
+*/

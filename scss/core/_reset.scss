@@ -1,0 +1,377 @@
+// =============================================================================
+// Creo Design Tokens
+// =============================================================================
+// Design tokens define the visual foundation of the Creo framework
+// Part of Creo CSS Framework - core/_tokens.scss
+
+// Import Sass modules for modern syntax
+@use 'sass:map';
+
+// =============================================================================
+// Color Palette
+// =============================================================================
+
+$creo-colors: (
+  // Primary brand colors
+  primary: #1f2937,
+  primary-light: #4b5563,
+  primary-dark: #0f172a,
+  
+  // Accent colors
+  accent: #3b82f6,
+  accent-light: #60a5fa,
+  accent-dark: #1d4ed8,
+  
+  // Neutral scale (gray)
+  neutral-50: #f8fafc,
+  neutral-100: #f1f5f9,
+  neutral-200: #e2e8f0,
+  neutral-300: #cbd5e1,
+  neutral-400: #94a3b8,
+  neutral-500: #64748b,
+  neutral-600: #475569,
+  neutral-700: #334155,
+  neutral-800: #1e293b,
+  neutral-900: #0f172a,
+  
+  // Semantic colors
+  success: #22c55e,
+  success-light: #4ade80,
+  success-dark: #16a34a,
+  
+  warning: #f59e0b,
+  warning-light: #fbbf24,
+  warning-dark: #d97706,
+  
+  error: #ef4444,
+  error-light: #f87171,
+  error-dark: #dc2626,
+  
+  info: #3b82f6,
+  info-light: #60a5fa,
+  info-dark: #1d4ed8,
+  
+  // Pure colors
+  white: #ffffff,
+  black: #000000
+) !default;
+
+// =============================================================================
+// Typography Scale
+// =============================================================================
+
+// Font families
+$creo-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif !default;
+$creo-font-family-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace !default;
+
+// Font sizes
+$creo-font-sizes: (
+  xs: 0.75rem,     // 12px
+  sm: 0.875rem,    // 14px
+  base: 1rem,      // 16px
+  lg: 1.125rem,    // 18px
+  xl: 1.25rem,     // 20px
+  2xl: 1.5rem,     // 24px
+  3xl: 1.875rem,   // 30px
+  4xl: 2.25rem,    // 36px
+  5xl: 3rem,       // 48px
+  6xl: 3.75rem,    // 60px
+  7xl: 4.5rem,     // 72px
+  8xl: 6rem,       // 96px
+  9xl: 8rem        // 128px
+) !default;
+
+// Font weights
+$creo-font-weights: (
+  thin: 100,
+  extralight: 200,
+  light: 300,
+  normal: 400,
+  medium: 500,
+  semibold: 600,
+  bold: 700,
+  extrabold: 800,
+  black: 900
+) !default;
+
+// Individual font weight variables
+$creo-font-weight-thin: map.get($creo-font-weights, thin) !default;
+$creo-font-weight-extralight: map.get($creo-font-weights, extralight) !default;
+$creo-font-weight-light: map.get($creo-font-weights, light) !default;
+$creo-font-weight-normal: map.get($creo-font-weights, normal) !default;
+$creo-font-weight-medium: map.get($creo-font-weights, medium) !default;
+$creo-font-weight-semibold: map.get($creo-font-weights, semibold) !default;
+$creo-font-weight-bold: map.get($creo-font-weights, bold) !default;
+$creo-font-weight-extrabold: map.get($creo-font-weights, extrabold) !default;
+$creo-font-weight-black: map.get($creo-font-weights, black) !default;
+
+// Line heights
+$creo-line-heights: (
+  none: 1,
+  tight: 1.25,
+  snug: 1.375,
+  normal: 1.5,
+  relaxed: 1.625,
+  loose: 2
+) !default;
+
+// Individual line height variables
+$creo-line-height-none: map.get($creo-line-heights, none) !default;
+$creo-line-height-tight: map.get($creo-line-heights, tight) !default;
+$creo-line-height-snug: map.get($creo-line-heights, snug) !default;
+$creo-line-height-normal: map.get($creo-line-heights, normal) !default;
+$creo-line-height-base: map.get($creo-line-heights, normal) !default;
+$creo-line-height-relaxed: map.get($creo-line-heights, relaxed) !default;
+$creo-line-height-loose: map.get($creo-line-heights, loose) !default;
+
+// Semantic line height aliases
+$creo-line-height-heading: map.get($creo-line-heights, tight) !default;
+
+// Letter spacing
+$creo-letter-spacing: (
+  tighter: -0.05em,
+  tight: -0.025em,
+  normal: 0,
+  wide: 0.025em,
+  wider: 0.05em,
+  widest: 0.1em
+) !default;
+
+// =============================================================================
+// Spacing Scale
+// =============================================================================
+
+$creo-spacing: (
+  0: 0,
+  px: 1px,
+  0.5: 0.125rem,   // 2px
+  1: 0.25rem,      // 4px
+  1.5: 0.375rem,   // 6px
+  2: 0.5rem,       // 8px
+  2.5: 0.625rem,   // 10px
+  3: 0.75rem,      // 12px
+  3.5: 0.875rem,   // 14px
+  4: 1rem,         // 16px
+  5: 1.25rem,      // 20px
+  6: 1.5rem,       // 24px
+  7: 1.75rem,      // 28px
+  8: 2rem,         // 32px
+  9: 2.25rem,      // 36px
+  10: 2.5rem,      // 40px
+  11: 2.75rem,     // 44px
+  12: 3rem,        // 48px
+  14: 3.5rem,      // 56px
+  16: 4rem,        // 64px
+  20: 5rem,        // 80px
+  24: 6rem,        // 96px
+  28: 7rem,        // 112px
+  32: 8rem,        // 128px
+  36: 9rem,        // 144px
+  40: 10rem,       // 160px
+  44: 11rem,       // 176px
+  48: 12rem,       // 192px
+  52: 13rem,       // 208px
+  56: 14rem,       // 224px
+  60: 15rem,       // 240px
+  64: 16rem,       // 256px
+  72: 18rem,       // 288px
+  80: 20rem,       // 320px
+  96: 24rem        // 384px
+) !default;
+
+// Semantic spacing aliases
+$creo-spacing-xs: map.get($creo-spacing, 1) !default;    // 4px
+$creo-spacing-sm: map.get($creo-spacing, 2) !default;    // 8px
+$creo-spacing-md: map.get($creo-spacing, 4) !default;    // 16px
+$creo-spacing-lg: map.get($creo-spacing, 6) !default;    // 24px
+$creo-spacing-xl: map.get($creo-spacing, 8) !default;    // 32px
+$creo-spacing-2xl: map.get($creo-spacing, 12) !default;  // 48px
+$creo-spacing-3xl: map.get($creo-spacing, 16) !default;  // 64px
+$creo-spacing-4xl: map.get($creo-spacing, 24) !default;  // 96px
+
+// Alternative naming for backward compatibility
+$creo-space-xs: $creo-spacing-xs !default;
+$creo-space-sm: $creo-spacing-sm !default;
+$creo-space-md: $creo-spacing-md !default;
+$creo-space-lg: $creo-spacing-lg !default;
+$creo-space-xl: $creo-spacing-xl !default;
+$creo-space-2xl: $creo-spacing-2xl !default;
+$creo-space-3xl: $creo-spacing-3xl !default;
+$creo-space-4xl: $creo-spacing-4xl !default;
+
+// =============================================================================
+// Breakpoints
+// =============================================================================
+
+$creo-breakpoints: (
+  xs: 0,
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+  2xl: 1536px
+) !default;
+
+// =============================================================================
+// Border Radius
+// =============================================================================
+
+$creo-border-radius-none: 0 !default;
+$creo-border-radius-xs: 0.125rem !default;   // 2px
+$creo-border-radius-sm: 0.25rem !default;    // 4px
+$creo-border-radius-md: 0.375rem !default;   // 6px
+$creo-border-radius-lg: 0.5rem !default;     // 8px
+$creo-border-radius-xl: 0.75rem !default;    // 12px
+$creo-border-radius-2xl: 1rem !default;      // 16px
+$creo-border-radius-3xl: 1.5rem !default;    // 24px
+$creo-border-radius-full: 9999px !default;
+
+// =============================================================================
+// Shadow System
+// =============================================================================
+
+$creo-shadows: (
+  none: none,
+  xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05),
+  sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+  md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+  lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+  xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+  inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)
+) !default;
+
+// Individual shadow variables
+$creo-shadow-none: map.get($creo-shadows, none) !default;
+$creo-shadow-xs: map.get($creo-shadows, xs) !default;
+$creo-shadow-sm: map.get($creo-shadows, sm) !default;
+$creo-shadow-md: map.get($creo-shadows, md) !default;
+$creo-shadow-lg: map.get($creo-shadows, lg) !default;
+$creo-shadow-xl: map.get($creo-shadows, xl) !default;
+$creo-shadow-2xl: map.get($creo-shadows, 2xl) !default;
+$creo-shadow-inner: map.get($creo-shadows, inner) !default;
+
+// =============================================================================
+// Max Widths
+// =============================================================================
+
+$creo-max-widths: (
+  xs: 20rem,      // 320px
+  sm: 24rem,      // 384px
+  md: 28rem,      // 448px
+  lg: 32rem,      // 512px
+  xl: 36rem,      // 576px
+  2xl: 42rem,     // 672px
+  3xl: 48rem,     // 768px
+  4xl: 56rem,     // 896px
+  5xl: 64rem,     // 1024px
+  6xl: 72rem,     // 1152px
+  7xl: 80rem,     // 1280px
+  full: 100%,
+  prose: 65ch
+) !default;
+
+// =============================================================================
+// Transitions
+// =============================================================================
+
+$creo-transition-fast: 150ms ease-in-out !default;
+$creo-transition-base: 250ms ease-in-out !default;
+$creo-transition-slow: 350ms ease-in-out !default;
+
+// =============================================================================
+// Z-Index Scale
+// =============================================================================
+
+$creo-z-indexes: (
+  auto: auto,
+  0: 0,
+  10: 10,
+  20: 20,
+  30: 30,
+  40: 40,
+  50: 50,
+  dropdown: 1000,
+  sticky: 1020,
+  fixed: 1030,
+  modal-backdrop: 1040,
+  modal: 1050,
+  popover: 1060,
+  tooltip: 1070
+) !default;
+
+// =============================================================================
+// Semantic Color Tokens
+// =============================================================================
+
+// Text colors
+$creo-color-text-primary: map.get($creo-colors, neutral-900) !default;
+$creo-color-text-secondary: map.get($creo-colors, neutral-600) !default;
+$creo-color-text-muted: map.get($creo-colors, neutral-500) !default;
+$creo-color-text-heading: map.get($creo-colors, neutral-900) !default;
+$creo-color-text-inverse: map.get($creo-colors, white) !default;
+
+// Background colors
+$creo-color-background: map.get($creo-colors, white) !default;
+$creo-color-surface: map.get($creo-colors, neutral-50) !default;
+
+// Form input colors
+$creo-color-input-background: map.get($creo-colors, white) !default;
+$creo-color-input-border: map.get($creo-colors, neutral-300) !default;
+$creo-color-input-focus: map.get($creo-colors, accent) !default;
+
+// Border colors
+$creo-color-border: map.get($creo-colors, neutral-200) !default;
+$creo-color-border-light: map.get($creo-colors, neutral-100) !default;
+$creo-color-border-dark: map.get($creo-colors, neutral-300) !default;
+
+// Interactive colors
+$creo-color-link: map.get($creo-colors, accent) !default;
+$creo-color-link-hover: map.get($creo-colors, accent-dark) !default;
+$creo-color-focus: map.get($creo-colors, accent) !default;
+
+// Component colors
+$creo-color-card-background: map.get($creo-colors, white) !default;
+$creo-color-card-border: map.get($creo-colors, neutral-200) !default;
+
+// =============================================================================
+// Helper Functions
+// =============================================================================
+
+@function creo-color($color-name) {
+  @if map.has-key($creo-colors, $color-name) {
+    @return map.get($creo-colors, $color-name);
+  } @else {
+    @warn "Color '#{$color-name}' not found in $creo-colors map. Using fallback.";
+    @return map.get($creo-colors, neutral-500);
+  }
+}
+
+@function creo-spacing($spacing-name) {
+  @if map.has-key($creo-spacing, $spacing-name) {
+    @return map.get($creo-spacing, $spacing-name);
+  } @else {
+    @warn "Spacing '#{$spacing-name}' not found in $creo-spacing map. Using fallback.";
+    @return map.get($creo-spacing, 4);
+  }
+}
+
+@function creo-breakpoint($breakpoint-name) {
+  @if map.has-key($creo-breakpoints, $breakpoint-name) {
+    @return map.get($creo-breakpoints, $breakpoint-name);
+  } @else {
+    @warn "Breakpoint '#{$breakpoint-name}' not found in $creo-breakpoints map. Using fallback.";
+    @return map.get($creo-breakpoints, md);
+  }
+}
+
+@mixin creo-breakpoint($breakpoint) {
+  $breakpoint-value: creo-breakpoint($breakpoint);
+  @if $breakpoint-value and $breakpoint-value > 0 {
+    @media (min-width: $breakpoint-value) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}

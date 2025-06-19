@@ -1,0 +1,420 @@
+// =============================================================================
+// Creo Container System
+// =============================================================================
+// Responsive containers for content-focused layouts
+// Part of Creo CSS Framework - layout/_containers.scss
+
+@use 'sass:map';
+@use '../core/tokens' as tokens;
+
+// =============================================================================
+// Base Container
+// =============================================================================
+
+.l-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: tokens.$creo-container-padding;
+  padding-right: tokens.$creo-container-padding;
+  
+  // Default container behavior - responsive max-width
+  max-width: map.get(tokens.$creo-containers, 2xl);
+  
+  @media (min-width: tokens.creo-breakpoint(sm)) {
+    padding-left: tokens.$creo-space-lg;
+    padding-right: tokens.$creo-space-lg;
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(lg)) {
+    padding-left: tokens.$creo-space-xl;
+    padding-right: tokens.$creo-space-xl;
+  }
+}
+
+// =============================================================================
+// Container Size Variants
+// =============================================================================
+
+// Small container for focused content
+.l-container--sm {
+  max-width: map.get(tokens.$creo-containers, sm);
+}
+
+// Medium container for balanced layouts
+.l-container--md {
+  max-width: map.get(tokens.$creo-containers, md);
+}
+
+// Large container for content-rich pages
+.l-container--lg {
+  max-width: map.get(tokens.$creo-containers, lg);
+}
+
+// Extra large container for wide layouts
+.l-container--xl {
+  max-width: map.get(tokens.$creo-containers, xl);
+}
+
+// Maximum container for full-width sections
+.l-container--2xl {
+  max-width: map.get(tokens.$creo-containers, 2xl);
+}
+
+// Fluid container with no max-width
+.l-container--fluid {
+  max-width: none;
+}
+
+// =============================================================================
+// Content-Specific Containers
+// =============================================================================
+
+// Reading container optimized for prose
+.l-container--prose {
+  max-width: 70ch; // Optimal reading line length
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    max-width: 75ch;
+  }
+}
+
+// Narrow container for forms and focused UI
+.l-container--narrow {
+  max-width: 28rem; // ~448px
+}
+
+// Wide container for media-rich content
+.l-container--wide {
+  max-width: 90rem; // ~1440px
+}
+
+// =============================================================================
+// Container Spacing Variants
+// =============================================================================
+
+// No horizontal padding
+.l-container--flush {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// Tight horizontal padding
+.l-container--tight {
+  padding-left: tokens.$creo-space-sm;
+  padding-right: tokens.$creo-space-sm;
+  
+  @media (min-width: tokens.creo-breakpoint(sm)) {
+    padding-left: tokens.$creo-space-md;
+    padding-right: tokens.$creo-space-md;
+  }
+}
+
+// Generous horizontal padding
+.l-container--loose {
+  padding-left: tokens.$creo-space-lg;
+  padding-right: tokens.$creo-space-lg;
+  
+  @media (min-width: tokens.creo-breakpoint(sm)) {
+    padding-left: tokens.$creo-space-xl;
+    padding-right: tokens.$creo-space-xl;
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(lg)) {
+    padding-left: tokens.$creo-space-2xl;
+    padding-right: tokens.$creo-space-2xl;
+  }
+}
+
+// =============================================================================
+// Breakpoint-Specific Containers
+// =============================================================================
+
+// Container that respects each breakpoint
+@each $breakpoint, $size in tokens.$creo-containers {
+  .l-container-#{$breakpoint} {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: tokens.$creo-container-padding;
+    padding-right: tokens.$creo-container-padding;
+    max-width: $size;
+    
+    @media (min-width: tokens.creo-breakpoint(sm)) {
+      padding-left: tokens.$creo-space-lg;
+      padding-right: tokens.$creo-space-lg;
+    }
+  }
+}
+
+// =============================================================================
+// Utility Containers
+// =============================================================================
+
+// Centered content block
+.l-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Full width utility
+.l-full {
+  width: 100%;
+}
+
+// Screen width containers
+.l-screen {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
+// Content width that breaks out of containers
+.l-breakout {
+  width: calc(100% + #{tokens.$creo-space-md * 2});
+  margin-left: calc(-#{tokens.$creo-space-md});
+  margin-right: calc(-#{tokens.$creo-space-md});
+  
+  @media (min-width: tokens.creo-breakpoint(sm)) {
+    width: calc(100% + #{tokens.$creo-space-lg * 2});
+    margin-left: calc(-#{tokens.$creo-space-lg});
+    margin-right: calc(-#{tokens.$creo-space-lg});
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(lg)) {
+    width: calc(100% + #{tokens.$creo-space-xl * 2});
+    margin-left: calc(-#{tokens.$creo-space-xl});
+    margin-right: calc(-#{tokens.$creo-space-xl});
+  }
+}
+
+// =============================================================================
+// Sectioning Containers
+// =============================================================================
+
+// Section wrapper with consistent vertical spacing
+.l-section {
+  padding-top: tokens.$creo-space-2xl;
+  padding-bottom: tokens.$creo-space-2xl;
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    padding-top: tokens.$creo-space-3xl;
+    padding-bottom: tokens.$creo-space-3xl;
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(lg)) {
+    padding-top: tokens.$creo-space-4xl;
+    padding-bottom: tokens.$creo-space-4xl;
+  }
+  
+  // Compact sections for tighter layouts
+  &--compact {
+    padding-top: tokens.$creo-space-xl;
+    padding-bottom: tokens.$creo-space-xl;
+    
+    @media (min-width: tokens.creo-breakpoint(md)) {
+      padding-top: tokens.$creo-space-2xl;
+      padding-bottom: tokens.$creo-space-2xl;
+    }
+  }
+  
+  // Spacious sections for hero areas
+  &--spacious {
+    padding-top: tokens.$creo-space-4xl;
+    padding-bottom: tokens.$creo-space-4xl;
+    
+    @media (min-width: tokens.creo-breakpoint(md)) {
+      padding-top: tokens.$creo-space-6xl;
+      padding-bottom: tokens.$creo-space-6xl;
+    }
+    
+    @media (min-width: tokens.creo-breakpoint(lg)) {
+      padding-top: tokens.$creo-space-8xl;
+      padding-bottom: tokens.$creo-space-8xl;
+    }
+  }
+  
+  // Remove top padding for first sections
+  &--no-top {
+    padding-top: 0;
+  }
+  
+  // Remove bottom padding for last sections
+  &--no-bottom {
+    padding-bottom: 0;
+  }
+}
+
+// =============================================================================
+// Wrapper Utilities
+// =============================================================================
+
+// Generic wrapper for any content
+.l-wrapper {
+  position: relative;
+  
+  // Full height wrapper
+  &--full-height {
+    min-height: 100vh;
+    min-height: 100dvh; // Dynamic viewport height for mobile
+  }
+  
+  // Flex wrapper for centering
+  &--center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  // Flex wrapper for vertical centering
+  &--center-y {
+    display: flex;
+    align-items: center;
+  }
+  
+  // Flex wrapper for horizontal centering
+  &--center-x {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+// =============================================================================
+// Content Flow Containers
+// =============================================================================
+
+// Stack container for vertical content flow
+.l-stack {
+  display: flex;
+  flex-direction: column;
+  
+  // Default gap
+  gap: tokens.$creo-space-md;
+  
+  // Gap variations
+  &--tight {
+    gap: tokens.$creo-space-sm;
+  }
+  
+  &--loose {
+    gap: tokens.$creo-space-lg;
+  }
+  
+  &--spacious {
+    gap: tokens.$creo-space-xl;
+  }
+  
+  // Responsive gaps
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    &--md\:loose {
+      gap: tokens.$creo-space-lg;
+    }
+    
+    &--md\:spacious {
+      gap: tokens.$creo-space-xl;
+    }
+  }
+}
+
+// Cluster container for horizontal content flow
+.l-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  gap: tokens.$creo-space-md;
+  align-items: center;
+  
+  // Alignment variations
+  &--start {
+    justify-content: flex-start;
+  }
+  
+  &--center {
+    justify-content: center;
+  }
+  
+  &--end {
+    justify-content: flex-end;
+  }
+  
+  &--between {
+    justify-content: space-between;
+  }
+  
+  &--around {
+    justify-content: space-around;
+  }
+  
+  // Gap variations
+  &--tight {
+    gap: tokens.$creo-space-sm;
+  }
+  
+  &--loose {
+    gap: tokens.$creo-space-lg;
+  }
+}
+
+// =============================================================================
+// Responsive Container Utilities
+// =============================================================================
+
+// Responsive max-width utilities
+@each $breakpoint, $value in tokens.$creo-breakpoints {
+  @if $value > 0 {
+    @media (min-width: $value) {
+      .u-#{$breakpoint}\:container {
+        max-width: map.get(tokens.$creo-containers, $breakpoint);
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .u-#{$breakpoint}\:container-fluid {
+        max-width: none;
+      }
+      
+      .u-#{$breakpoint}\:mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// Print Optimizations
+// =============================================================================
+
+@media print {
+  .l-container,
+  .l-container--sm,
+  .l-container--md,
+  .l-container--lg,
+  .l-container--xl,
+  .l-container--2xl {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .l-section {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    
+    &--compact {
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+    
+    &--spacious {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+  }
+  
+  .l-breakout,
+  .l-screen {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

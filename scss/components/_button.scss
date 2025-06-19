@@ -1,0 +1,343 @@
+@use "sass:map";
+// =============================================================================
+// Button Component
+// =============================================================================
+//
+// Flexible button component for CTAs, forms, and navigation.
+// Supports various sizes, styles, and states.
+//
+// Usage:
+// <button class="c-button">Default</button>
+// <a href="#" class="c-button c-button--primary">Primary CTA</a>
+// <button class="c-button c-button--outline c-button--large">Large Outline</button>
+
+@use '../core/tokens' as *;
+@use 'sass:color';
+
+// Button Component Tokens
+$button-padding-y: 0.75rem !default;
+$button-padding-x: 1.5rem !default;
+$button-font-size: 1rem !default;
+$button-font-weight: 600 !default;
+$button-border-radius: 0.375rem !default;
+$button-border-width: 2px !default;
+$button-transition: all 0.2s ease-in-out !default;
+
+// Button Size Modifiers
+$button-sizes: (
+  small: (
+    padding-y: 0.5rem,
+    padding-x: 1rem,
+    font-size: 0.875rem,
+  ),
+  large: (
+    padding-y: 1rem,
+    padding-x: 2rem,
+    font-size: 1.125rem,
+  ),
+  xl: (
+    padding-y: 1.25rem,
+    padding-x: 2.5rem,
+    font-size: 1.25rem,
+  ),
+) !default;
+
+// =============================================================================
+// Base Button
+// =============================================================================
+
+.c-button {
+  // Reset browser defaults
+  appearance: none;
+  border: none;
+  background: none;
+  margin: 0;
+  font-family: inherit;
+  text-decoration: none;
+
+  // Base styles
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: $button-padding-y $button-padding-x;
+  font-size: $button-font-size;
+  font-weight: $button-font-weight;
+  line-height: 1;
+  border-radius: $button-border-radius;
+  border: $button-border-width solid transparent;
+  cursor: pointer;
+  transition: $button-transition;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  // Default button style (neutral)
+  background-color: map.get($creo-colors, 'neutral');
+  color: map.get($creo-colors, 'primary');
+  border-color: map.get($creo-colors, 'neutral');
+
+  // Hover state
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  // Active state
+  &:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  // Focus state
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(map.get($creo-colors, 'accent'), 0.3);
+  }
+
+  // Disabled state
+  &:disabled,
+  &[aria-disabled="true"] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+}
+
+// =============================================================================
+// Button Style Variants
+// =============================================================================
+
+// Primary button (main CTA)
+.c-button--primary {
+  background-color: map.get($creo-colors, 'accent');
+  color: white;
+  border-color: map.get($creo-colors, 'accent');
+
+  &:hover {
+    background-color: color.adjust(map.get($creo-colors, 'accent'), $lightness: -8%);
+    border-color: color.adjust(map.get($creo-colors, 'accent'), $lightness: -8%);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(map.get($creo-colors, 'accent'), 0.4);
+  }
+}
+
+// Secondary button (less prominent CTA)
+.c-button--secondary {
+  background-color: map.get($creo-colors, 'primary');
+  color: white;
+  border-color: map.get($creo-colors, 'primary');
+
+  &:hover {
+    background-color: color.adjust(map.get($creo-colors, 'primary'), $lightness: 10%);
+    border-color: color.adjust(map.get($creo-colors, 'primary'), $lightness: 10%);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(map.get($creo-colors, 'primary'), 0.3);
+  }
+}
+
+// Outline button (ghost style)
+.c-button--outline {
+  background-color: transparent;
+  color: map.get($creo-colors, 'primary');
+  border-color: map.get($creo-colors, 'primary');
+
+  &:hover {
+    background-color: map.get($creo-colors, 'primary');
+    color: white;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(map.get($creo-colors, 'primary'), 0.2);
+  }
+}
+
+// Outline primary (colored outline)
+.c-button--outline-primary {
+  background-color: transparent;
+  color: map.get($creo-colors, 'accent');
+  border-color: map.get($creo-colors, 'accent');
+
+  &:hover {
+    background-color: map.get($creo-colors, 'accent');
+    color: white;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(map.get($creo-colors, 'accent'), 0.3);
+  }
+}
+
+// Text button (minimal style)
+.c-button--text {
+  background-color: transparent;
+  color: map.get($creo-colors, 'accent');
+  border-color: transparent;
+  padding: 0.5rem 1rem;
+
+  &:hover {
+    background-color: rgba(map.get($creo-colors, 'accent'), 0.1);
+    transform: none;
+    box-shadow: none;
+  }
+
+  &:active {
+    background-color: rgba(map.get($creo-colors, 'accent'), 0.2);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(map.get($creo-colors, 'accent'), 0.3);
+  }
+}
+
+// Danger/destructive button
+.c-button--danger {
+  background-color: #dc2626;
+  color: white;
+  border-color: #dc2626;
+
+  &:hover {
+    background-color: color.adjust(#dc2626, $lightness: -8%);
+    border-color: color.adjust(#dc2626, $lightness: -8%);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(#dc2626, 0.3);
+  }
+}
+
+// Success button
+.c-button--success {
+  background-color: #16a34a;
+  color: white;
+  border-color: #16a34a;
+
+  &:hover {
+    background-color: color.adjust(#16a34a, $lightness: -8%);
+    border-color: color.adjust(#16a34a, $lightness: -8%);
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba(#16a34a, 0.3);
+  }
+}
+
+// =============================================================================
+// Button Size Variants
+// =============================================================================
+
+.c-button--small {
+  padding: map.get(map.get($button-sizes, 'small'), 'padding-y') 
+           map.get(map.get($button-sizes, 'small'), 'padding-x');
+  font-size: map.get(map.get($button-sizes, 'small'), 'font-size');
+}
+
+.c-button--large {
+  padding: map.get(map.get($button-sizes, 'large'), 'padding-y') 
+           map.get(map.get($button-sizes, 'large'), 'padding-x');
+  font-size: map.get(map.get($button-sizes, 'large'), 'font-size');
+}
+
+.c-button--xl {
+  padding: map.get(map.get($button-sizes, 'xl'), 'padding-y') 
+           map.get(map.get($button-sizes, 'xl'), 'padding-x');
+  font-size: map.get(map.get($button-sizes, 'xl'), 'font-size');
+}
+
+// =============================================================================
+// Button Shape Variants
+// =============================================================================
+
+// Rounded button
+.c-button--rounded {
+  border-radius: 2rem;
+}
+
+// Square button (no border radius)
+.c-button--square {
+  border-radius: 0;
+}
+
+// =============================================================================
+// Button Width Variants
+// =============================================================================
+
+// Full width button
+.c-button--full {
+  width: 100%;
+}
+
+// Block button (full width on mobile)
+.c-button--block {
+  @media (max-width: 640px) {
+    width: 100%;
+  }
+}
+
+// =============================================================================
+// Icon Support
+// =============================================================================
+
+// Button with icon
+.c-button__icon {
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+
+  // Icon-only button
+  .c-button--icon-only & {
+    margin: 0;
+  }
+}
+
+// Icon-only button (square aspect ratio)
+.c-button--icon-only {
+  padding: $button-padding-y;
+  aspect-ratio: 1;
+  
+  &.c-button--small {
+    padding: map.get(map.get($button-sizes, 'small'), 'padding-y');
+  }
+  
+  &.c-button--large {
+    padding: map.get(map.get($button-sizes, 'large'), 'padding-y');
+  }
+  
+  &.c-button--xl {
+    padding: map.get(map.get($button-sizes, 'xl'), 'padding-y');
+  }
+}
+
+// =============================================================================
+// Button Groups
+// =============================================================================
+
+.c-button-group {
+  display: inline-flex;
+  
+  .c-button {
+    border-radius: 0;
+    border-right-width: 0;
+    
+    &:first-child {
+      border-top-left-radius: $button-border-radius;
+      border-bottom-left-radius: $button-border-radius;
+    }
+    
+    &:last-child {
+      border-top-right-radius: $button-border-radius;
+      border-bottom-right-radius: $button-border-radius;
+      border-right-width: $button-border-width;
+    }
+    
+    &:hover {
+      z-index: 1;
+      position: relative;
+    }
+  }
+}

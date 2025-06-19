@@ -1,0 +1,304 @@
+// =============================================================================
+// Creo Spacing Utilities
+// =============================================================================
+// Margin and padding utility classes
+// Part of Creo CSS Framework - utilities/_spacing.scss
+
+@use 'sass:map';
+@use '../core/tokens' as tokens;
+
+// =============================================================================
+// Helper Functions
+// =============================================================================
+
+// Convert spacing names to valid CSS class names
+@function valid-class-name($name) {
+  // Handle common decimal values manually
+  @if $name == 0.5 {
+    @return "0_5";
+  } @else if $name == 1.5 {
+    @return "1_5";
+  } @else if $name == 2.5 {
+    @return "2_5";
+  } @else if $name == 3.5 {
+    @return "3_5";
+  } @else {
+    @return $name;
+  }
+}
+
+// =============================================================================
+// Margin Utilities
+// =============================================================================
+
+// Generate margin utilities for all spacing values
+@each $space-name, $space-value in tokens.$creo-spacing {
+  $class-name: valid-class-name($space-name);
+  
+  // All sides margin
+  .u-m-#{$class-name} { 
+    margin: $space-value !important; 
+  }
+  
+  // Horizontal margin (left + right)
+  .u-mx-#{$class-name} { 
+    margin-left: $space-value !important;
+    margin-right: $space-value !important;
+  }
+  
+  // Vertical margin (top + bottom)
+  .u-my-#{$class-name} { 
+    margin-top: $space-value !important;
+    margin-bottom: $space-value !important;
+  }
+  
+  // Individual sides
+  .u-mt-#{$class-name} { margin-top: $space-value !important; }
+  .u-mr-#{$class-name} { margin-right: $space-value !important; }
+  .u-mb-#{$class-name} { margin-bottom: $space-value !important; }
+  .u-ml-#{$class-name} { margin-left: $space-value !important; }
+}
+
+// =============================================================================
+// Padding Utilities
+// =============================================================================
+
+// Generate padding utilities for all spacing values
+@each $space-name, $space-value in tokens.$creo-spacing {
+  $class-name: valid-class-name($space-name);
+  
+  // All sides padding
+  .u-p-#{$class-name} { 
+    padding: $space-value !important; 
+  }
+  
+  // Horizontal padding (left + right)
+  .u-px-#{$class-name} { 
+    padding-left: $space-value !important;
+    padding-right: $space-value !important;
+  }
+  
+  // Vertical padding (top + bottom)
+  .u-py-#{$class-name} { 
+    padding-top: $space-value !important;
+    padding-bottom: $space-value !important;
+  }
+  
+  // Individual sides
+  .u-pt-#{$class-name} { padding-top: $space-value !important; }
+  .u-pr-#{$class-name} { padding-right: $space-value !important; }
+  .u-pb-#{$class-name} { padding-bottom: $space-value !important; }
+  .u-pl-#{$class-name} { padding-left: $space-value !important; }
+}
+
+// =============================================================================
+// Semantic Spacing Utilities
+// =============================================================================
+
+// Quick semantic margin classes
+.u-m-xs { margin: tokens.$creo-space-xs !important; }
+.u-m-sm { margin: tokens.$creo-space-sm !important; }
+.u-m-md { margin: tokens.$creo-space-md !important; }
+.u-m-lg { margin: tokens.$creo-space-lg !important; }
+.u-m-xl { margin: tokens.$creo-space-xl !important; }
+.u-m-2xl { margin: tokens.$creo-space-2xl !important; }
+
+// Quick semantic padding classes
+.u-p-xs { padding: tokens.$creo-space-xs !important; }
+.u-p-sm { padding: tokens.$creo-space-sm !important; }
+.u-p-md { padding: tokens.$creo-space-md !important; }
+.u-p-lg { padding: tokens.$creo-space-lg !important; }
+.u-p-xl { padding: tokens.$creo-space-xl !important; }
+.u-p-2xl { padding: tokens.$creo-space-2xl !important; }
+
+// =============================================================================
+// Auto Margin Utilities
+// =============================================================================
+
+.u-m-auto { margin: auto !important; }
+.u-mx-auto { 
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+.u-my-auto { 
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+}
+.u-mt-auto { margin-top: auto !important; }
+.u-mr-auto { margin-right: auto !important; }
+.u-mb-auto { margin-bottom: auto !important; }
+.u-ml-auto { margin-left: auto !important; }
+
+// =============================================================================
+// Negative Margin Utilities
+// =============================================================================
+
+// Generate negative margin utilities for commonly used values
+$negative-spacing: (
+  1: tokens.$creo-space-xs,
+  2: tokens.$creo-space-sm,
+  4: tokens.$creo-space-md,
+  6: tokens.$creo-space-lg,
+  8: tokens.$creo-space-xl,
+  12: tokens.$creo-space-2xl
+);
+
+@each $space-name, $space-value in $negative-spacing {
+  // All sides negative margin
+  .u--m-#{$space-name} { 
+    margin: -$space-value !important; 
+  }
+  
+  // Horizontal negative margin
+  .u--mx-#{$space-name} { 
+    margin-left: -$space-value !important;
+    margin-right: -$space-value !important;
+  }
+  
+  // Vertical negative margin
+  .u--my-#{$space-name} { 
+    margin-top: -$space-value !important;
+    margin-bottom: -$space-value !important;
+  }
+  
+  // Individual sides
+  .u--mt-#{$space-name} { margin-top: -$space-value !important; }
+  .u--mr-#{$space-name} { margin-right: -$space-value !important; }
+  .u--mb-#{$space-name} { margin-bottom: -$space-value !important; }
+  .u--ml-#{$space-name} { margin-left: -$space-value !important; }
+}
+
+// =============================================================================
+// Responsive Spacing Utilities
+// =============================================================================
+
+// Generate responsive spacing utilities
+@each $breakpoint, $value in tokens.$creo-breakpoints {
+  @if $value > 0 {
+    @media (min-width: $value) {
+      // Semantic responsive margins
+      .u-#{$breakpoint}\:m-0 { margin: 0 !important; }
+      .u-#{$breakpoint}\:m-xs { margin: tokens.$creo-space-xs !important; }
+      .u-#{$breakpoint}\:m-sm { margin: tokens.$creo-space-sm !important; }
+      .u-#{$breakpoint}\:m-md { margin: tokens.$creo-space-md !important; }
+      .u-#{$breakpoint}\:m-lg { margin: tokens.$creo-space-lg !important; }
+      .u-#{$breakpoint}\:m-xl { margin: tokens.$creo-space-xl !important; }
+      .u-#{$breakpoint}\:m-2xl { margin: tokens.$creo-space-2xl !important; }
+      
+      // Semantic responsive padding
+      .u-#{$breakpoint}\:p-0 { padding: 0 !important; }
+      .u-#{$breakpoint}\:p-xs { padding: tokens.$creo-space-xs !important; }
+      .u-#{$breakpoint}\:p-sm { padding: tokens.$creo-space-sm !important; }
+      .u-#{$breakpoint}\:p-md { padding: tokens.$creo-space-md !important; }
+      .u-#{$breakpoint}\:p-lg { padding: tokens.$creo-space-lg !important; }
+      .u-#{$breakpoint}\:p-xl { padding: tokens.$creo-space-xl !important; }
+      .u-#{$breakpoint}\:p-2xl { padding: tokens.$creo-space-2xl !important; }
+      
+      // Responsive auto margins
+      .u-#{$breakpoint}\:mx-auto { 
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+      .u-#{$breakpoint}\:my-auto { 
+        margin-top: auto !important;
+        margin-bottom: auto !important;
+      }
+      
+      // Responsive directional spacing
+      .u-#{$breakpoint}\:mt-0 { margin-top: 0 !important; }
+      .u-#{$breakpoint}\:mr-0 { margin-right: 0 !important; }
+      .u-#{$breakpoint}\:mb-0 { margin-bottom: 0 !important; }
+      .u-#{$breakpoint}\:ml-0 { margin-left: 0 !important; }
+      
+      .u-#{$breakpoint}\:pt-0 { padding-top: 0 !important; }
+      .u-#{$breakpoint}\:pr-0 { padding-right: 0 !important; }
+      .u-#{$breakpoint}\:pb-0 { padding-bottom: 0 !important; }
+      .u-#{$breakpoint}\:pl-0 { padding-left: 0 !important; }
+    }
+  }
+}
+
+// =============================================================================
+// Gap Utilities (for Flexbox and Grid)
+// =============================================================================
+
+@each $space-name, $space-value in tokens.$creo-spacing {
+  $class-name: valid-class-name($space-name);
+  
+  .u-gap-#{$class-name} { gap: $space-value !important; }
+  .u-gap-x-#{$class-name} { column-gap: $space-value !important; }
+  .u-gap-y-#{$class-name} { row-gap: $space-value !important; }
+}
+
+// Semantic gap utilities
+.u-gap-xs { gap: tokens.$creo-space-xs !important; }
+.u-gap-sm { gap: tokens.$creo-space-sm !important; }
+.u-gap-md { gap: tokens.$creo-space-md !important; }
+.u-gap-lg { gap: tokens.$creo-space-lg !important; }
+.u-gap-xl { gap: tokens.$creo-space-xl !important; }
+.u-gap-2xl { gap: tokens.$creo-space-2xl !important; }
+
+// =============================================================================
+// Space Between Utilities (for Flexbox children)
+// =============================================================================
+
+.u-space-x-xs > * + * { margin-left: tokens.$creo-space-xs !important; }
+.u-space-x-sm > * + * { margin-left: tokens.$creo-space-sm !important; }
+.u-space-x-md > * + * { margin-left: tokens.$creo-space-md !important; }
+.u-space-x-lg > * + * { margin-left: tokens.$creo-space-lg !important; }
+.u-space-x-xl > * + * { margin-left: tokens.$creo-space-xl !important; }
+
+.u-space-y-xs > * + * { margin-top: tokens.$creo-space-xs !important; }
+.u-space-y-sm > * + * { margin-top: tokens.$creo-space-sm !important; }
+.u-space-y-md > * + * { margin-top: tokens.$creo-space-md !important; }
+.u-space-y-lg > * + * { margin-top: tokens.$creo-space-lg !important; }
+.u-space-y-xl > * + * { margin-top: tokens.$creo-space-xl !important; }
+
+// =============================================================================
+// Usage Examples & Documentation
+// =============================================================================
+
+/*
+Basic Spacing Usage:
+
+Margin Examples:
+<div class="u-m-4">All sides margin (16px)</div>
+<div class="u-mx-6">Horizontal margin (24px)</div>
+<div class="u-my-8">Vertical margin (32px)</div>
+<div class="u-mt-2">Top margin (8px)</div>
+
+Using decimal values (converted to underscore notation):
+<div class="u-m-0_5">Margin 0.5 (2px)</div>
+<div class="u-p-1_5">Padding 1.5 (6px)</div>
+
+Padding Examples:
+<div class="u-p-lg">Large padding (24px)</div>
+<div class="u-px-md">Horizontal padding (16px)</div>
+<div class="u-py-sm">Vertical padding (8px)</div>
+
+Auto Margins (centering):
+<div class="u-mx-auto">Horizontally centered</div>
+<div class="u-my-auto">Vertically centered</div>
+
+Negative Margins:
+<div class="u--mt-4">Negative top margin</div>
+<div class="u--mx-2">Negative horizontal margin</div>
+
+Responsive Spacing:
+<div class="u-p-sm u-md:p-lg u-lg:p-xl">Responsive padding</div>
+<div class="u-m-0 u-sm:m-md">Responsive margin</div>
+
+Gap Utilities (for Grid/Flexbox):
+<div class="l-grid u-gap-lg">Grid with large gap</div>
+<div class="l-flex u-gap-x-md u-gap-y-sm">Different horizontal/vertical gaps</div>
+
+Space Between:
+<div class="l-flex u-space-x-md">
+  <span>Item 1</span>
+  <span>Item 2</span>  <!-- Has left margin -->
+  <span>Item 3</span>  <!-- Has left margin -->
+</div>
+
+Print-friendly spacing:
+All spacing utilities automatically adjust for print media
+*/

@@ -1,0 +1,273 @@
+@use "sass:map";
+// =============================================================================
+// Hero Component
+// =============================================================================
+//
+// Flexible hero section for landing pages, marketing sites, and homepages.
+// Supports various layouts: centered, split, with backgrounds.
+//
+// Usage:
+// <section class="c-hero">
+//   <div class="c-hero__content">
+//     <h1 class="c-hero__title">Your Amazing Product</h1>
+//     <p class="c-hero__subtitle">Build faster, ship smarter</p>
+//     <div class="c-hero__actions">
+//       <a href="#" class="c-button c-button--primary">Get Started</a>
+//     </div>
+//   </div>
+// </section>
+//
+// Note: Requires button component for action buttons
+
+@use '../core/tokens' as *;
+
+// Hero Component Tokens
+$hero-padding-y: map.get($creo-spacing, 'xl') !default;
+$hero-padding-x: map.get($creo-spacing, 'md') !default;
+$hero-min-height: 60vh !default;
+$hero-content-max-width: 48rem !default;
+$hero-title-size: map.get($creo-font-sizes, 'xl') !default;
+$hero-subtitle-size: 1.25rem !default;
+
+// =============================================================================
+// Base Hero
+// =============================================================================
+
+.c-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: $hero-min-height;
+  padding: $hero-padding-y $hero-padding-x;
+  overflow: hidden;
+
+  // Center content by default
+  justify-content: center;
+  text-align: center;
+
+  // Background handling
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+// =============================================================================
+// Hero Content Container
+// =============================================================================
+
+.c-hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: $hero-content-max-width;
+  width: 100%;
+}
+
+// =============================================================================
+// Hero Typography
+// =============================================================================
+
+.c-hero__title {
+  margin: 0 0 map.get($creo-spacing, 'md') 0;
+  font-size: $hero-title-size;
+  font-weight: 700;
+  line-height: 1.1;
+  color: map.get($creo-colors, 'primary');
+
+  // Responsive scaling
+  @media (max-width: 768px) {
+    font-size: $hero-title-size * 0.8;
+  }
+}
+
+.c-hero__subtitle {
+  margin: 0 0 map.get($creo-spacing, 'lg') 0;
+  font-size: $hero-subtitle-size;
+  line-height: 1.5;
+  color: map.get($creo-colors, 'text-secondary');
+  opacity: 0.85;
+
+  @media (max-width: 768px) {
+    font-size: $hero-subtitle-size * 0.9;
+  }
+}
+
+// =============================================================================
+// Hero Actions
+// =============================================================================
+
+.c-hero__actions {
+  display: flex;
+  gap: map.get($creo-spacing, 'md');
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  @media (max-width: 568px) {
+    flex-direction: column;
+    gap: map.get($creo-spacing, 'sm');
+  }
+}
+
+// =============================================================================
+// Background Overlay
+// =============================================================================
+
+.c-hero__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+// =============================================================================
+// Hero Modifiers
+// =============================================================================
+
+// Left-aligned hero
+.c-hero--left {
+  justify-content: flex-start;
+  text-align: left;
+
+  .c-hero__actions {
+    justify-content: flex-start;
+
+    @media (max-width: 568px) {
+      align-items: stretch;
+    }
+  }
+}
+
+// Split layout hero (text left, visual right)
+.c-hero--split {
+  justify-content: space-between;
+  text-align: left;
+  min-height: 70vh;
+
+  .c-hero__content {
+    max-width: 50%;
+    flex: 0 0 50%;
+
+    @media (max-width: 968px) {
+      max-width: 100%;
+      flex: 1;
+      text-align: center;
+    }
+  }
+
+  .c-hero__actions {
+    justify-content: flex-start;
+
+    @media (max-width: 968px) {
+      justify-content: center;
+    }
+
+    @media (max-width: 568px) {
+      align-items: stretch;
+    }
+  }
+}
+
+// Visual container for split layout
+.c-hero__visual {
+  flex: 0 0 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  @media (max-width: 968px) {
+    display: none;
+  }
+}
+
+// Large hero (full viewport height)
+.c-hero--large {
+  min-height: 100vh;
+}
+
+// Compact hero (smaller padding)
+.c-hero--compact {
+  min-height: 40vh;
+  padding: map.get($creo-spacing, 'lg') $hero-padding-x;
+}
+
+// Dark theme hero
+.c-hero--dark {
+  background-color: map.get($creo-colors, 'primary');
+  color: white;
+
+  .c-hero__title {
+    color: white;
+  }
+
+  .c-hero__subtitle {
+    color: rgba(255, 255, 255, 0.85);
+  }
+}
+
+// Gradient background hero
+.c-hero--gradient {
+  background: linear-gradient(
+    135deg,
+    map.get($creo-colors, 'primary') 0%,
+    map.get($creo-colors, 'accent') 100%
+  );
+  color: white;
+
+  .c-hero__title {
+    color: white;
+  }
+
+  .c-hero__subtitle {
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+// =============================================================================
+// Hero Utilities
+// =============================================================================
+
+// Background image helper
+.c-hero--bg-image {
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+  }
+
+  .c-hero__content {
+    z-index: 2;
+    color: white;
+  }
+
+  .c-hero__title {
+    color: white;
+  }
+
+  .c-hero__subtitle {
+    color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+// =============================================================================
+// Container Integration
+// =============================================================================
+
+// When hero is inside a container, remove default padding
+.l-container .c-hero,
+.c-hero .l-container {
+  padding-left: 0;
+  padding-right: 0;
+}

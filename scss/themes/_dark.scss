@@ -1,0 +1,778 @@
+@use "sass:map";
+// =============================================================================
+// Creo Dark Theme
+// =============================================================================
+// Comprehensive dark mode implementation with accessibility focus
+// Part of Creo CSS Framework - themes/_dark.scss
+
+@use '../core/tokens' as tokens;
+
+// =============================================================================
+// Dark Theme Color Palette
+// =============================================================================
+
+$creo-dark-colors: (
+  // Primary brand colors (slightly lighter for dark backgrounds)
+  primary: #1f2937,
+  primary-light: #4b5563,
+  primary-dark: #0f172a,
+  
+  // Accent colors (more vibrant for dark backgrounds)
+  accent: #60a5fa,
+  accent-light: #93c5fd,
+  accent-dark: #3b82f6,
+  
+  // Dark neutral scale
+  neutral-50: #0f172a,
+  neutral-100: #1e293b,
+  neutral-200: #334155,
+  neutral-300: #475569,
+  neutral-400: #64748b,
+  neutral-500: #94a3b8,
+  neutral-600: #cbd5e1,
+  neutral-700: #e2e8f0,
+  neutral-800: #f1f5f9,
+  neutral-900: #f8fafc,
+  
+  // Semantic colors optimized for dark backgrounds
+  success: #34d399,
+  success-light: #6ee7b7,
+  success-dark: #10b981,
+  
+  warning: #fbbf24,
+  warning-light: #fcd34d,
+  warning-dark: #f59e0b,
+  
+  error: #f87171,
+  error-light: #fca5a5,
+  error-dark: #ef4444,
+  
+  info: #60a5fa,
+  info-light: #93c5fd,
+  info-dark: #3b82f6,
+  
+  // Pure colors
+  white: #ffffff,
+  black: #000000,
+) !default;
+
+// =============================================================================
+// Dark Mode Mixins
+// =============================================================================
+
+@mixin dark-mode-styles {
+  // Image adjustments for dark mode
+  img {
+    opacity: 0.9;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+  
+  // Subtle image filters for better integration
+  .c-hero img,
+  .c-feature img {
+    filter: brightness(0.9) contrast(1.1);
+  }
+  
+  // Selection colors for dark mode
+  ::selection {
+    background-color: #{map.get($creo-dark-colors, accent)};
+    color: #{map.get($creo-dark-colors, neutral-50)};
+  }
+  
+  ::-moz-selection {
+    background-color: #{map.get($creo-dark-colors, accent)};
+    color: #{map.get($creo-dark-colors, neutral-50)};
+  }
+  
+  // Scrollbar styling for dark mode
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #{map.get($creo-dark-colors, neutral-100)};
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #{map.get($creo-dark-colors, neutral-400)};
+    border-radius: 4px;
+    
+    &:hover {
+      background: #{map.get($creo-dark-colors, neutral-500)};
+    }
+  }
+}
+
+@mixin section-bg-neutral-dark {
+  background-color: #{map.get($creo-dark-colors, neutral-200)};
+}
+
+@mixin section-bg-gradient-subtle-dark {
+  background: linear-gradient(
+    135deg,
+    #{map.get($creo-dark-colors, neutral-50)} 0%,
+    #{map.get($creo-dark-colors, neutral-100)} 100%
+  );
+}
+
+@mixin theme-toggle-dark-styles {
+  background-color: #{map.get($creo-dark-colors, accent)};
+  
+  &::before {
+    transform: translateX(1.5rem);
+  }
+}
+
+// =============================================================================
+// Dark Theme CSS Custom Properties
+// =============================================================================
+
+:root {
+  // Light theme colors (default)
+  --creo-color-background: #{tokens.creo-color(white)};
+  --creo-color-surface: #{tokens.creo-color(neutral-50)};
+  --creo-color-border: #{tokens.creo-color(neutral-200)};
+  --creo-color-border-light: #{tokens.creo-color(neutral-100)};
+  --creo-color-border-dark: #{tokens.creo-color(neutral-300)};
+  
+  // Text colors
+  --creo-color-text-primary: #{tokens.creo-color(neutral-900)};
+  --creo-color-text-secondary: #{tokens.creo-color(neutral-600)};
+  --creo-color-text-muted: #{tokens.creo-color(neutral-500)};
+  --creo-color-text-heading: #{tokens.creo-color(neutral-900)};
+  --creo-color-text-inverse: #{tokens.creo-color(white)};
+  
+  // Interactive colors
+  --creo-color-link: #{tokens.creo-color(accent)};
+  --creo-color-link-hover: #{tokens.creo-color(accent-dark)};
+  --creo-color-focus: #{tokens.creo-color(accent)};
+  
+  // Form colors
+  --creo-color-input-background: #{tokens.creo-color(white)};
+  --creo-color-input-border: #{tokens.creo-color(neutral-300)};
+  --creo-color-input-focus: #{tokens.creo-color(accent)};
+  
+  // Component colors
+  --creo-color-card-background: #{tokens.creo-color(white)};
+  --creo-color-card-border: #{tokens.creo-color(neutral-200)};
+  --creo-color-modal-backdrop: rgba(0, 0, 0, 0.5);
+  --creo-color-code-background: #{tokens.creo-color(neutral-50)};
+  --creo-color-code-text: #{tokens.creo-color(primary)};
+  
+  // Shadows
+  --creo-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --creo-shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --creo-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --creo-shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+// =============================================================================
+// Automatic Dark Mode (System Preference)
+// =============================================================================
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    // Background colors
+    --creo-color-background: #{map.get($creo-dark-colors, neutral-50)};
+    --creo-color-surface: #{map.get($creo-dark-colors, neutral-100)};
+    --creo-color-border: #{map.get($creo-dark-colors, neutral-300)};
+    --creo-color-border-light: #{map.get($creo-dark-colors, neutral-200)};
+    --creo-color-border-dark: #{map.get($creo-dark-colors, neutral-400)};
+    
+    // Text colors (inverted hierarchy)
+    --creo-color-text-primary: #{map.get($creo-dark-colors, neutral-900)};
+    --creo-color-text-secondary: #{map.get($creo-dark-colors, neutral-600)};
+    --creo-color-text-muted: #{map.get($creo-dark-colors, neutral-500)};
+    --creo-color-text-heading: #{map.get($creo-dark-colors, neutral-800)};
+    --creo-color-text-inverse: #{map.get($creo-dark-colors, neutral-50)};
+    
+    // Interactive colors (brighter for dark backgrounds)
+    --creo-color-link: #{map.get($creo-dark-colors, accent)};
+    --creo-color-link-hover: #{map.get($creo-dark-colors, accent-light)};
+    --creo-color-focus: #{map.get($creo-dark-colors, accent)};
+    
+    // Form colors
+    --creo-color-input-background: #{map.get($creo-dark-colors, neutral-100)};
+    --creo-color-input-border: #{map.get($creo-dark-colors, neutral-300)};
+    --creo-color-input-focus: #{map.get($creo-dark-colors, accent)};
+    
+    // Component colors
+    --creo-color-card-background: #{map.get($creo-dark-colors, neutral-100)};
+    --creo-color-card-border: #{map.get($creo-dark-colors, neutral-200)};
+    --creo-color-modal-backdrop: rgba(0, 0, 0, 0.8);
+    --creo-color-code-background: #{map.get($creo-dark-colors, neutral-200)};
+    --creo-color-code-text: #{map.get($creo-dark-colors, accent-light)};
+    
+    // Darker shadows for depth
+    --creo-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+    --creo-shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+    --creo-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+    --creo-shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  }
+  
+  // Apply dark mode styles using mixin
+  @include dark-mode-styles;
+}
+
+// =============================================================================
+// Manual Dark Mode Classes
+// =============================================================================
+
+// Force dark mode regardless of system preference
+.creo-theme-dark {
+  // Background colors
+  --creo-color-background: #{map.get($creo-dark-colors, neutral-50)};
+  --creo-color-surface: #{map.get($creo-dark-colors, neutral-100)};
+  --creo-color-border: #{map.get($creo-dark-colors, neutral-300)};
+  --creo-color-border-light: #{map.get($creo-dark-colors, neutral-200)};
+  --creo-color-border-dark: #{map.get($creo-dark-colors, neutral-400)};
+  
+  // Text colors
+  --creo-color-text-primary: #{map.get($creo-dark-colors, neutral-900)};
+  --creo-color-text-secondary: #{map.get($creo-dark-colors, neutral-600)};
+  --creo-color-text-muted: #{map.get($creo-dark-colors, neutral-500)};
+  --creo-color-text-heading: #{map.get($creo-dark-colors, neutral-800)};
+  --creo-color-text-inverse: #{map.get($creo-dark-colors, neutral-50)};
+  
+  // Interactive colors
+  --creo-color-link: #{map.get($creo-dark-colors, accent)};
+  --creo-color-link-hover: #{map.get($creo-dark-colors, accent-light)};
+  --creo-color-focus: #{map.get($creo-dark-colors, accent)};
+  
+  // Form colors
+  --creo-color-input-background: #{map.get($creo-dark-colors, neutral-100)};
+  --creo-color-input-border: #{map.get($creo-dark-colors, neutral-300)};
+  --creo-color-input-focus: #{map.get($creo-dark-colors, accent)};
+  
+  // Component colors
+  --creo-color-card-background: #{map.get($creo-dark-colors, neutral-100)};
+  --creo-color-card-border: #{map.get($creo-dark-colors, neutral-200)};
+  --creo-color-modal-backdrop: rgba(0, 0, 0, 0.8);
+  --creo-color-code-background: #{map.get($creo-dark-colors, neutral-200)};
+  --creo-color-code-text: #{map.get($creo-dark-colors, accent-light)};
+  
+  // Shadows
+  --creo-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  --creo-shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+  --creo-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  --creo-shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+  
+  // Color scheme meta for browser UI
+  color-scheme: dark;
+  
+  // Apply dark mode styles using mixin
+  @include dark-mode-styles;
+}
+
+// Force light mode
+.creo-theme-light {
+  // Explicitly set light theme colors
+  --creo-color-background: #{tokens.creo-color(white)};
+  --creo-color-surface: #{tokens.creo-color(neutral-50)};
+  --creo-color-border: #{tokens.creo-color(neutral-200)};
+  --creo-color-border-light: #{tokens.creo-color(neutral-100)};
+  --creo-color-border-dark: #{tokens.creo-color(neutral-300)};
+  
+  --creo-color-text-primary: #{tokens.creo-color(neutral-900)};
+  --creo-color-text-secondary: #{tokens.creo-color(neutral-600)};
+  --creo-color-text-muted: #{tokens.creo-color(neutral-500)};
+  --creo-color-text-heading: #{tokens.creo-color(neutral-900)};
+  --creo-color-text-inverse: #{tokens.creo-color(white)};
+  
+  --creo-color-link: #{tokens.creo-color(accent)};
+  --creo-color-link-hover: #{tokens.creo-color(accent-dark)};
+  --creo-color-focus: #{tokens.creo-color(accent)};
+  
+  --creo-color-input-background: #{tokens.creo-color(white)};
+  --creo-color-input-border: #{tokens.creo-color(neutral-300)};
+  --creo-color-input-focus: #{tokens.creo-color(accent)};
+  
+  --creo-color-card-background: #{tokens.creo-color(white)};
+  --creo-color-card-border: #{tokens.creo-color(neutral-200)};
+  --creo-color-modal-backdrop: rgba(0, 0, 0, 0.5);
+  --creo-color-code-background: #{tokens.creo-color(neutral-50)};
+  --creo-color-code-text: #{tokens.creo-color(primary)};
+  
+  --creo-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --creo-shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --creo-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --creo-shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  color-scheme: light;
+}
+
+// =============================================================================
+// Component Updates for Dark Mode
+// =============================================================================
+
+// Update all components to use CSS custom properties
+body {
+  background-color: var(--creo-color-background);
+  color: var(--creo-color-text-primary);
+  
+  // Smooth transitions for theme switching
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Links
+a {
+  color: var(--creo-color-link);
+  
+  &:hover, &:focus {
+    color: var(--creo-color-link-hover);
+  }
+  
+  &:focus {
+    outline-color: var(--creo-color-focus);
+  }
+}
+
+// Form elements
+input, select, textarea {
+  background-color: var(--creo-color-input-background);
+  border-color: var(--creo-color-input-border);
+  color: var(--creo-color-text-primary);
+  
+  &:focus {
+    border-color: var(--creo-color-input-focus);
+    outline-color: var(--creo-color-focus);
+  }
+  
+  &::placeholder {
+    color: var(--creo-color-text-muted);
+  }
+}
+
+// Buttons
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  &:focus {
+    outline-color: var(--creo-color-focus);
+  }
+}
+
+// Borders
+hr {
+  background-color: var(--creo-color-border);
+}
+
+// Code elements
+code {
+  background-color: var(--creo-color-code-background);
+  color: var(--creo-color-code-text);
+  border-color: var(--creo-color-border-light);
+}
+
+pre {
+  background-color: var(--creo-color-surface);
+  border-color: var(--creo-color-border);
+}
+
+// Blockquotes
+blockquote {
+  background-color: var(--creo-color-surface);
+  border-left-color: var(--creo-color-link);
+}
+
+// Tables
+th {
+  color: var(--creo-color-text-heading);
+}
+
+// Skip links
+.skip-link {
+  background: var(--creo-color-background);
+  color: var(--creo-color-text-primary);
+  border-color: var(--creo-color-focus);
+}
+
+// =============================================================================
+// Section Background Adjustments
+// =============================================================================
+
+// Update section backgrounds for dark mode
+.l-section--bg-surface {
+  background-color: var(--creo-color-surface);
+}
+
+.l-section--bg-neutral {
+  @media (prefers-color-scheme: dark) {
+    @include section-bg-neutral-dark;
+  }
+}
+
+.creo-theme-dark .l-section--bg-neutral {
+  @include section-bg-neutral-dark;
+}
+
+// Update gradient for dark mode
+.l-section--bg-gradient-subtle {
+  @media (prefers-color-scheme: dark) {
+    @include section-bg-gradient-subtle-dark;
+  }
+}
+
+.creo-theme-dark .l-section--bg-gradient-subtle {
+  @include section-bg-gradient-subtle-dark;
+}
+
+// =============================================================================
+// Dark Mode Utility Classes
+// =============================================================================
+
+// Force specific colors in dark mode
+.u-dark\:text-white {
+  @media (prefers-color-scheme: dark) {
+    color: #{map.get($creo-dark-colors, white)} !important;
+  }
+}
+
+.creo-theme-dark .u-dark\:text-white {
+  color: #{map.get($creo-dark-colors, white)} !important;
+}
+
+.u-dark\:text-primary {
+  @media (prefers-color-scheme: dark) {
+    color: var(--creo-color-text-primary) !important;
+  }
+}
+
+.creo-theme-dark .u-dark\:text-primary {
+  color: var(--creo-color-text-primary) !important;
+}
+
+.u-dark\:bg-surface {
+  @media (prefers-color-scheme: dark) {
+    background-color: var(--creo-color-surface) !important;
+  }
+}
+
+.creo-theme-dark .u-dark\:bg-surface {
+  background-color: var(--creo-color-surface) !important;
+}
+
+// Border utilities for dark mode
+.u-dark\:border-light {
+  @media (prefers-color-scheme: dark) {
+    border-color: var(--creo-color-border-light) !important;
+  }
+}
+
+.creo-theme-dark .u-dark\:border-light {
+  border-color: var(--creo-color-border-light) !important;
+}
+
+// =============================================================================
+// Dark Mode Toggle Button Styles
+// =============================================================================
+
+.c-theme-toggle {
+  position: relative;
+  width: 3rem;
+  height: 1.5rem;
+  background-color: var(--creo-color-border);
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 1.25rem;
+    height: 1.25rem;
+    background-color: var(--creo-color-background);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    box-shadow: var(--creo-shadow-sm);
+  }
+  
+  &:focus {
+    outline: 2px solid var(--creo-color-focus);
+    outline-offset: 2px;
+  }
+  
+  // Dark mode styles using mixin
+  @media (prefers-color-scheme: dark) {
+    @include theme-toggle-dark-styles;
+  }
+  
+  &.is-dark {
+    @include theme-toggle-dark-styles;
+  }
+}
+
+.creo-theme-dark .c-theme-toggle {
+  @include theme-toggle-dark-styles;
+}
+
+// =============================================================================
+// High Contrast Mode Support
+// =============================================================================
+
+@media (prefers-contrast: high) {
+  :root {
+    --creo-color-text-primary: #{tokens.creo-color(black)};
+    --creo-color-text-secondary: #{tokens.creo-color(black)};
+    --creo-color-background: #{tokens.creo-color(white)};
+    --creo-color-border: #{tokens.creo-color(black)};
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --creo-color-text-primary: #{tokens.creo-color(white)};
+      --creo-color-text-secondary: #{tokens.creo-color(white)};
+      --creo-color-background: #{tokens.creo-color(black)};
+      --creo-color-border: #{tokens.creo-color(white)};
+    }
+  }
+}
+
+// =============================================================================
+// Reduced Motion Support
+// =============================================================================
+
+@media (prefers-reduced-motion: reduce) {
+  body,
+  .c-theme-toggle,
+  .c-theme-toggle::before {
+    transition: none !important;
+  }
+}
+
+// =============================================================================
+// Print Mode Adjustments
+// =============================================================================
+
+@media print {
+  // Force light mode for printing
+  :root {
+    --creo-color-background: #{tokens.creo-color(white)} !important;
+    --creo-color-text-primary: #{tokens.creo-color(black)} !important;
+    --creo-color-text-secondary: #{tokens.creo-color(black)} !important;
+    --creo-color-text-heading: #{tokens.creo-color(black)} !important;
+    --creo-color-border: #{tokens.creo-color(neutral-400)} !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .c-theme-toggle {
+    display: none !important;
+  }
+}
+
+// =============================================================================
+// Documentation & Usage Examples
+// =============================================================================
+
+/*
+Dark Theme Usage Examples:
+
+Automatic Dark Mode (Respects System Preference):
+<body>
+  <!-- Content automatically adapts to user's system preference -->
+  <h1>This heading will be light or dark based on system settings</h1>
+</body>
+
+Manual Dark Mode Control:
+<body class="creo-theme-dark">
+  <!-- Force dark mode regardless of system preference -->
+  <h1>This is always in dark mode</h1>
+</body>
+
+<body class="creo-theme-light">
+  <!-- Force light mode regardless of system preference -->
+  <h1>This is always in light mode</h1>
+</body>
+
+Theme Toggle Button:
+<button class="c-theme-toggle" 
+        onclick="toggleTheme()" 
+        aria-label="Toggle dark mode">
+  <span class="u-sr-only">Toggle theme</span>
+</button>
+
+<script>
+function toggleTheme() {
+  const body = document.body;
+  const isDark = body.classList.contains('creo-theme-dark');
+  
+  if (isDark) {
+    body.classList.remove('creo-theme-dark');
+    body.classList.add('creo-theme-light');
+    localStorage.setItem('theme', 'light');
+  } else {
+    body.classList.remove('creo-theme-light');
+    body.classList.add('creo-theme-dark');
+    localStorage.setItem('theme', 'dark');
+  }
+}
+
+// Initialize theme on page load
+document.addEventListener('DOMContentLoaded', function() {
+  const savedTheme = localStorage.getItem('theme');
+  const body = document.body;
+  
+  if (savedTheme) {
+    body.classList.add(`creo-theme-${savedTheme}`);
+  }
+  
+  // Update toggle button state
+  const toggle = document.querySelector('.c-theme-toggle');
+  if (toggle) {
+    const isDark = body.classList.contains('creo-theme-dark') || 
+                   (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    toggle.classList.toggle('is-dark', isDark);
+  }
+});
+</script>
+
+Dark Mode Specific Utilities:
+<div class="u-bg-surface u-dark:bg-neutral-200">
+  Background adapts to theme
+</div>
+
+<p class="u-text-secondary u-dark:text-primary">
+  Text color adapts to theme
+</p>
+
+Themed Section:
+<section class="l-section l-section--bg-surface">
+  <div class="l-container">
+    <h2 class="u-text-center u-mb-xl">Automatically Themed Content</h2>
+    <div class="l-grid l-grid--3 u-gap-lg">
+      <div class="c-card u-p-lg">
+        <h3 class="u-mb-sm">Card Title</h3>
+        <p class="u-text-secondary">Card content that adapts to theme</p>
+      </div>
+      <!-- More cards... -->
+    </div>
+  </div>
+</section>
+
+Themed Navigation:
+<header class="u-py-md u-border-b u-border-light">
+  <div class="l-container">
+    <nav class="u-flex u-justify-between u-items-center">
+      <a href="/" class="u-text-xl u-font-bold">Brand</a>
+      
+      <div class="u-flex u-items-center u-gap-lg">
+        <div class="u-hidden u-md:flex u-gap-lg">
+          <a href="/about" class="u-text-secondary u-hover:text-primary">About</a>
+          <a href="/services" class="u-text-secondary u-hover:text-primary">Services</a>
+          <a href="/contact" class="u-text-secondary u-hover:text-primary">Contact</a>
+        </div>
+        
+        <button class="c-theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+          <span class="u-sr-only">Toggle dark mode</span>
+        </button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+Themed Hero Section:
+<section class="l-section l-section--hero u-text-center">
+  <div class="l-container">
+    <h1 class="c-display u-mb-lg">
+      Beautiful in Light and Dark
+    </h1>
+    <p class="c-lead u-text-secondary u-mb-xl">
+      Our content looks stunning in any theme
+    </p>
+    <div class="u-flex u-justify-center u-gap-md">
+      <button class="c-button c-button--primary">Get Started</button>
+      <button class="c-button c-button--secondary">Learn More</button>
+    </div>
+  </div>
+</section>
+
+Themed Form:
+<form class="u-max-w-md u-mx-auto u-p-lg">
+  <div class="u-mb-md">
+    <label for="email" class="u-block u-mb-sm u-font-medium">Email</label>
+    <input type="email" 
+           id="email" 
+           class="u-w-full u-p-sm u-border u-border-light u-rounded"
+           placeholder="Enter your email">
+  </div>
+  
+  <div class="u-mb-lg">
+    <label for="message" class="u-block u-mb-sm u-font-medium">Message</label>
+    <textarea id="message" 
+              rows="4"
+              class="u-w-full u-p-sm u-border u-border-light u-rounded"
+              placeholder="Your message..."></textarea>
+  </div>
+  
+  <button type="submit" class="c-button c-button--primary u-w-full">
+    Send Message
+  </button>
+</form>
+
+Complete Themed Page Example:
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>Themed Page</title>
+  <link rel="stylesheet" href="creo.css">
+</head>
+<body>
+  <!-- Header with theme toggle -->
+  <header class="u-py-md u-border-b">
+    <div class="l-container">
+      <nav class="u-flex u-justify-between u-items-center">
+        <a href="/" class="u-text-xl u-font-bold">Brand</a>
+        <button class="c-theme-toggle" onclick="toggleTheme()">
+          <span class="u-sr-only">Toggle theme</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Main content -->
+  <main>
+    <section class="l-section l-section--hero">
+      <div class="l-container">
+        <h1 class="c-display u-text-center u-mb-lg">Welcome</h1>
+        <p class="c-lead u-text-center u-text-secondary">
+          Experience our beautiful theming system
+        </p>
+      </div>
+    </section>
+    
+    <section class="l-section l-section--bg-surface">
+      <div class="l-container">
+        <h2 class="u-text-center u-mb-xl">Features</h2>
+        <!-- Feature content that adapts to theme -->
+      </div>
+    </section>
+  </main>
+  
+  <!-- Footer -->
+  <footer class="l-section l-section--footer">
+    <div class="l-container">
+      <p class="u-text-center u-text-sm">
+        &copy; 2025 Your Company. All rights reserved.
+      </p>
+    </div>
+  </footer>
+  
+  <script src="theme-toggle.js"></script>
+</body>
+</html>
+*/

@@ -1,0 +1,529 @@
+// =============================================================================
+// Creo Sections System
+// =============================================================================
+// Semantic sectioning patterns for content-focused websites
+// Part of Creo CSS Framework - layout/_sections.scss
+
+@use 'sass:map';
+@use '../core/tokens' as tokens;
+
+// =============================================================================
+// Base Section
+// =============================================================================
+
+.l-section {
+  position: relative;
+  padding-top: tokens.$creo-space-2xl;
+  padding-bottom: tokens.$creo-space-2xl;
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    padding-top: tokens.$creo-space-3xl;
+    padding-bottom: tokens.$creo-space-3xl;
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(lg)) {
+    padding-top: tokens.$creo-space-4xl;
+    padding-bottom: tokens.$creo-space-4xl;
+  }
+}
+
+// =============================================================================
+// Spacing Variations
+// =============================================================================
+
+// Compact sections for tighter layouts
+.l-section--compact {
+  padding-top: tokens.$creo-space-xl;
+  padding-bottom: tokens.$creo-space-xl;
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    padding-top: tokens.$creo-space-2xl;
+    padding-bottom: tokens.$creo-space-2xl;
+  }
+}
+
+// Spacious sections for hero areas and key content
+.l-section--spacious {
+  padding-top: tokens.$creo-space-4xl;
+  padding-bottom: tokens.$creo-space-4xl;
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    padding-top: tokens.$creo-space-6xl;
+    padding-bottom: tokens.$creo-space-6xl;
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(lg)) {
+    padding-top: tokens.$creo-space-8xl;
+    padding-bottom: tokens.$creo-space-8xl;
+  }
+}
+
+// Extra spacious for dramatic hero sections
+.l-section--huge {
+  padding-top: tokens.$creo-space-6xl;
+  padding-bottom: tokens.$creo-space-6xl;
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    padding-top: tokens.$creo-space-8xl;
+    padding-bottom: tokens.$creo-space-8xl;
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(lg)) {
+    padding-top: tokens.$creo-space-9xl;
+    padding-bottom: tokens.$creo-space-9xl;
+  }
+}
+
+// Remove specific padding sides
+.l-section--no-top { padding-top: 0; }
+.l-section--no-bottom { padding-bottom: 0; }
+.l-section--no-y { padding-top: 0; padding-bottom: 0; }
+
+// =============================================================================
+// Background Treatments
+// =============================================================================
+
+// Background colors
+.l-section--bg-primary {
+  background-color: tokens.creo-color(primary);
+  color: tokens.$creo-color-text-inverse;
+  
+  // Adjust link colors for dark background
+  a {
+    color: tokens.creo-color(accent-light);
+    
+    &:hover, &:focus {
+      color: tokens.$creo-color-text-inverse;
+    }
+  }
+}
+
+.l-section--bg-accent {
+  background-color: tokens.creo-color(accent);
+  color: tokens.$creo-color-text-inverse;
+  
+  a {
+    color: tokens.$creo-color-text-inverse;
+    
+    &:hover, &:focus {
+      color: tokens.creo-color(accent-light);
+    }
+  }
+}
+
+.l-section--bg-surface {
+  background-color: tokens.$creo-color-surface;
+}
+
+.l-section--bg-neutral {
+  background-color: tokens.creo-color(neutral-100);
+}
+
+.l-section--bg-dark {
+  background-color: tokens.creo-color(neutral-900);
+  color: tokens.$creo-color-text-inverse;
+  
+  a {
+    color: tokens.creo-color(accent-light);
+    
+    &:hover, &:focus {
+      color: tokens.$creo-color-text-inverse;
+    }
+  }
+}
+
+// Gradient backgrounds
+.l-section--bg-gradient {
+  background: linear-gradient(
+    135deg,
+    tokens.creo-color(accent) 0%,
+    tokens.creo-color(accent-dark) 100%
+  );
+  color: tokens.$creo-color-text-inverse;
+  
+  a {
+    color: tokens.$creo-color-text-inverse;
+    
+    &:hover, &:focus {
+      color: tokens.creo-color(accent-light);
+    }
+  }
+}
+
+.l-section--bg-gradient-subtle {
+  background: linear-gradient(
+    135deg,
+    tokens.$creo-color-background 0%,
+    tokens.$creo-color-surface 100%
+  );
+}
+
+// =============================================================================
+// Content Alignment
+// =============================================================================
+
+.l-section--center {
+  text-align: center;
+  
+  .l-container > * {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.l-section--left {
+  text-align: left;
+}
+
+.l-section--right {
+  text-align: right;
+}
+
+// =============================================================================
+// Visual Treatments
+// =============================================================================
+
+// Border treatments
+.l-section--border-top {
+  border-top: 1px solid tokens.$creo-color-border;
+}
+
+.l-section--border-bottom {
+  border-bottom: 1px solid tokens.$creo-color-border;
+}
+
+.l-section--border-y {
+  border-top: 1px solid tokens.$creo-color-border;
+  border-bottom: 1px solid tokens.$creo-color-border;
+}
+
+// Thick accent borders
+.l-section--accent-border-top {
+  border-top: 4px solid tokens.creo-color(accent);
+}
+
+.l-section--accent-border-bottom {
+  border-bottom: 4px solid tokens.creo-color(accent);
+}
+
+// Shadow treatments
+.l-section--shadow {
+  box-shadow: tokens.creo-shadow(md);
+}
+
+.l-section--shadow-inner {
+  box-shadow: tokens.creo-shadow(inner);
+}
+
+// =============================================================================
+// Full Height Sections
+// =============================================================================
+
+.l-section--full-height {
+  min-height: 100vh;
+  min-height: 100dvh; // Dynamic viewport height for mobile
+  display: flex;
+  align-items: center;
+  
+  &.l-section--center {
+    justify-content: center;
+  }
+}
+
+.l-section--min-height {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+// =============================================================================
+// Specialized Section Types
+// =============================================================================
+
+// Hero section optimized for landing pages
+.l-section--hero {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  padding-top: tokens.$creo-space-6xl;
+  padding-bottom: tokens.$creo-space-6xl;
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    min-height: 85vh;
+    padding-top: tokens.$creo-space-8xl;
+    padding-bottom: tokens.$creo-space-8xl;
+  }
+  
+  .l-container {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+// Feature section with optimized spacing
+.l-section--features {
+  background-color: tokens.$creo-color-surface;
+  padding-top: tokens.$creo-space-3xl;
+  padding-bottom: tokens.$creo-space-3xl;
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    padding-top: tokens.$creo-space-4xl;
+    padding-bottom: tokens.$creo-space-4xl;
+  }
+}
+
+// Testimonials section
+.l-section--testimonials {
+  background-color: tokens.creo-color(neutral-50);
+  text-align: center;
+  
+  .l-container {
+    max-width: map.get(tokens.$creo-containers, lg);
+  }
+}
+
+// Call-to-action section
+.l-section--cta {
+  background-color: tokens.creo-color(accent);
+  color: tokens.$creo-color-text-inverse;
+  text-align: center;
+  padding-top: tokens.$creo-space-3xl;
+  padding-bottom: tokens.$creo-space-3xl;
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    padding-top: tokens.$creo-space-4xl;
+    padding-bottom: tokens.$creo-space-4xl;
+  }
+  
+  a {
+    color: tokens.$creo-color-text-inverse;
+    
+    &:hover, &:focus {
+      color: tokens.creo-color(accent-light);
+    }
+  }
+}
+
+// About section with prose optimization
+.l-section--about {
+  .l-container {
+    max-width: map.get(tokens.$creo-containers, md);
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    text-align: center;
+  }
+}
+
+// Contact section
+.l-section--contact {
+  background-color: tokens.$creo-color-surface;
+  
+  .l-container {
+    max-width: map.get(tokens.$creo-containers, md);
+  }
+}
+
+// Footer section
+.l-section--footer {
+  background-color: tokens.creo-color(neutral-900);
+  color: tokens.$creo-color-text-inverse;
+  font-size: map.get(tokens.$creo-font-sizes, sm);
+  padding-top: tokens.$creo-space-2xl;
+  padding-bottom: tokens.$creo-space-xl;
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    padding-top: tokens.$creo-space-3xl;
+    padding-bottom: tokens.$creo-space-2xl;
+  }
+  
+  a {
+    color: tokens.creo-color(neutral-300);
+    
+    &:hover, &:focus {
+      color: tokens.$creo-color-text-inverse;
+    }
+  }
+}
+
+// =============================================================================
+// Background Image Support
+// =============================================================================
+
+.l-section--bg-image {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: tokens.$creo-color-text-inverse;
+  
+  // Dark overlay for readability
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+  }
+  
+  .l-container {
+    position: relative;
+    z-index: 2;
+  }
+  
+  // Overlay variations
+  &--overlay-light::before {
+    background: rgba(255, 255, 255, 0.8);
+  }
+  
+  &--overlay-dark::before {
+    background: rgba(0, 0, 0, 0.6);
+  }
+  
+  &--overlay-accent::before {
+    background: rgba(59, 130, 246, 0.8); // Using accent color
+  }
+  
+  &--no-overlay::before {
+    display: none;
+  }
+}
+
+// =============================================================================
+// Dividers & Separators
+// =============================================================================
+
+.l-section--divider {
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background-color: tokens.creo-color(accent);
+    border-radius: tokens.$creo-border-radius-full;
+  }
+  
+  // Center the divider for centered sections
+  &.l-section--center::after {
+    left: 50%;
+  }
+}
+
+// Decorative section separators
+.l-section-separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: tokens.$creo-space-xl 0;
+  
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: tokens.$creo-color-border;
+  }
+  
+  &::before {
+    margin-right: tokens.$creo-space-md;
+  }
+  
+  &::after {
+    margin-left: tokens.$creo-space-md;
+  }
+}
+
+// =============================================================================
+// Responsive Section Utilities
+// =============================================================================
+
+@each $breakpoint, $value in tokens.$creo-breakpoints {
+  @if $value > 0 {
+    @media (min-width: $value) {
+      .l-#{$breakpoint}\:section-center { text-align: center; }
+      .l-#{$breakpoint}\:section-left { text-align: left; }
+      .l-#{$breakpoint}\:section-right { text-align: right; }
+      
+      .l-#{$breakpoint}\:section-compact {
+        padding-top: tokens.$creo-space-xl;
+        padding-bottom: tokens.$creo-space-xl;
+      }
+      
+      .l-#{$breakpoint}\:section-spacious {
+        padding-top: tokens.$creo-space-4xl;
+        padding-bottom: tokens.$creo-space-4xl;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// Accessibility Improvements
+// =============================================================================
+
+// Skip links for section navigation
+.l-section[id] {
+  scroll-margin-top: tokens.$creo-space-lg;
+}
+
+// High contrast mode adjustments
+@media (prefers-contrast: high) {
+  .l-section--bg-primary,
+  .l-section--bg-accent,
+  .l-section--bg-dark {
+    border: 2px solid currentColor;
+  }
+  
+  .l-section--border-top,
+  .l-section--border-bottom,
+  .l-section--border-y {
+    border-width: 2px;
+  }
+}
+
+// Reduced motion for section transitions
+@media (prefers-reduced-motion: reduce) {
+  .l-section {
+    transition: none;
+  }
+}
+
+// =============================================================================
+// Print Optimizations
+// =============================================================================
+
+@media print {
+  .l-section {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background: white !important;
+    color: black !important;
+    box-shadow: none !important;
+    
+    &--hero,
+    &--spacious,
+    &--huge {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+      min-height: auto;
+    }
+    
+    &--bg-image::before {
+      display: none;
+    }
+  }
+  
+  .l-section-separator {
+    margin: 0.5rem 0;
+  }
+}

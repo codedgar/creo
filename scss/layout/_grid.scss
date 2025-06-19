@@ -1,0 +1,497 @@
+// =============================================================================
+// Creo Grid System
+// =============================================================================
+// Modern CSS Grid system for content-focused layouts
+// Part of Creo CSS Framework - layout/_grid.scss
+
+@use '../core/tokens' as tokens;
+
+// =============================================================================
+// Base Grid Container
+// =============================================================================
+
+.l-grid {
+  display: grid;
+  gap: tokens.$creo-grid-gap;
+  
+  // Default to single column on mobile
+  grid-template-columns: 1fr;
+  
+  // Auto-fit columns for equal-width layouts
+  &--auto {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
+  &--auto-sm {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  
+  &--auto-lg {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+  
+  // Auto-fill for maintaining column count
+  &--fill {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+// =============================================================================
+// Grid Gap Variations
+// =============================================================================
+
+.l-grid--gap-none { gap: 0; }
+.l-grid--gap-xs { gap: tokens.$creo-space-xs; }
+.l-grid--gap-sm { gap: tokens.$creo-space-sm; }
+.l-grid--gap-md { gap: tokens.$creo-space-md; }
+.l-grid--gap-lg { gap: tokens.$creo-space-lg; }
+.l-grid--gap-xl { gap: tokens.$creo-space-xl; }
+.l-grid--gap-2xl { gap: tokens.$creo-space-2xl; }
+
+// Separate row and column gaps
+.l-grid--gap-x-sm { column-gap: tokens.$creo-space-sm; }
+.l-grid--gap-x-md { column-gap: tokens.$creo-space-md; }
+.l-grid--gap-x-lg { column-gap: tokens.$creo-space-lg; }
+.l-grid--gap-x-xl { column-gap: tokens.$creo-space-xl; }
+
+.l-grid--gap-y-sm { row-gap: tokens.$creo-space-sm; }
+.l-grid--gap-y-md { row-gap: tokens.$creo-space-md; }
+.l-grid--gap-y-lg { row-gap: tokens.$creo-space-lg; }
+.l-grid--gap-y-xl { row-gap: tokens.$creo-space-xl; }
+
+// =============================================================================
+// Common Grid Patterns
+// =============================================================================
+
+// Two column layouts
+.l-grid--2 {
+  @media (min-width: tokens.creo-breakpoint(sm)) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+// Three column layouts
+.l-grid--3 {
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Four column layouts
+.l-grid--4 {
+  @media (min-width: tokens.creo-breakpoint(sm)) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(lg)) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Six column layouts (2-3-6 progression)
+.l-grid--6 {
+  @media (min-width: tokens.creo-breakpoint(sm)) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(lg)) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+// =============================================================================
+// Asymmetric Grid Patterns
+// =============================================================================
+
+// 1/3 - 2/3 split (sidebar + main)
+.l-grid--sidebar {
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    grid-template-columns: 1fr 2fr;
+  }
+  
+  // Reverse for right sidebar
+  &-reverse {
+    @media (min-width: tokens.creo-breakpoint(md)) {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+}
+
+// 1/4 - 3/4 split (narrow sidebar)
+.l-grid--sidebar-narrow {
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    grid-template-columns: 1fr 3fr;
+  }
+  
+  &-reverse {
+    @media (min-width: tokens.creo-breakpoint(md)) {
+      grid-template-columns: 3fr 1fr;
+    }
+  }
+}
+
+// Hero + content split
+.l-grid--hero {
+  @media (min-width: tokens.creo-breakpoint(lg)) {
+    grid-template-columns: 3fr 2fr;
+    align-items: center;
+  }
+  
+  &-reverse {
+    @media (min-width: tokens.creo-breakpoint(lg)) {
+      grid-template-columns: 2fr 3fr;
+      align-items: center;
+    }
+  }
+}
+
+// Feature grid (2x2, then 2x3)
+.l-grid--feature {
+  @media (min-width: tokens.creo-breakpoint(sm)) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(lg)) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// =============================================================================
+// Grid Item Classes
+// =============================================================================
+
+// Column spanning
+.l-col-span-1 { grid-column: span 1; }
+.l-col-span-2 { grid-column: span 2; }
+.l-col-span-3 { grid-column: span 3; }
+.l-col-span-4 { grid-column: span 4; }
+.l-col-span-5 { grid-column: span 5; }
+.l-col-span-6 { grid-column: span 6; }
+.l-col-span-full { grid-column: 1 / -1; }
+
+// Row spanning
+.l-row-span-1 { grid-row: span 1; }
+.l-row-span-2 { grid-row: span 2; }
+.l-row-span-3 { grid-row: span 3; }
+.l-row-span-4 { grid-row: span 4; }
+.l-row-span-full { grid-row: 1 / -1; }
+
+// Column positioning
+.l-col-start-1 { grid-column-start: 1; }
+.l-col-start-2 { grid-column-start: 2; }
+.l-col-start-3 { grid-column-start: 3; }
+.l-col-start-4 { grid-column-start: 4; }
+.l-col-start-auto { grid-column-start: auto; }
+
+.l-col-end-1 { grid-column-end: 1; }
+.l-col-end-2 { grid-column-end: 2; }
+.l-col-end-3 { grid-column-end: 3; }
+.l-col-end-4 { grid-column-end: 4; }
+.l-col-end-auto { grid-column-end: auto; }
+
+// =============================================================================
+// Grid Alignment
+// =============================================================================
+
+// Content alignment
+.l-grid--items-start { align-items: start; }
+.l-grid--items-center { align-items: center; }
+.l-grid--items-end { align-items: end; }
+.l-grid--items-stretch { align-items: stretch; }
+
+// Content justification
+.l-grid--content-start { justify-content: start; }
+.l-grid--content-center { justify-content: center; }
+.l-grid--content-end { justify-content: end; }
+.l-grid--content-between { justify-content: space-between; }
+.l-grid--content-around { justify-content: space-around; }
+.l-grid--content-evenly { justify-content: space-evenly; }
+
+// Individual item alignment
+.l-grid-item--start { align-self: start; }
+.l-grid-item--center { align-self: center; }
+.l-grid-item--end { align-self: end; }
+.l-grid-item--stretch { align-self: stretch; }
+
+// Individual item justification
+.l-grid-item--justify-start { justify-self: start; }
+.l-grid-item--justify-center { justify-self: center; }
+.l-grid-item--justify-end { justify-self: end; }
+.l-grid-item--justify-stretch { justify-self: stretch; }
+
+// =============================================================================
+// Specialized Grid Layouts
+// =============================================================================
+
+// Masonry-style grid
+.l-grid--masonry {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: max-content;
+  gap: tokens.$creo-space-md;
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+// Card grid for portfolios
+.l-grid--cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: tokens.$creo-space-lg;
+  
+  @media (min-width: tokens.creo-breakpoint(lg)) {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  }
+}
+
+// Testimonial grid
+.l-grid--testimonials {
+  display: grid;
+  gap: tokens.$creo-space-lg;
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(xl)) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Team member grid
+.l-grid--team {
+  display: grid;
+  gap: tokens.$creo-space-xl;
+  justify-items: center;
+  
+  @media (min-width: tokens.creo-breakpoint(sm)) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(xl)) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+// Logo grid for clients/partners
+.l-grid--logos {
+  display: grid;
+  gap: tokens.$creo-space-md;
+  align-items: center;
+  justify-items: center;
+  
+  grid-template-columns: repeat(2, 1fr);
+  
+  @media (min-width: tokens.creo-breakpoint(sm)) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(lg)) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+// =============================================================================
+// Responsive Grid Utilities
+// =============================================================================
+
+// Responsive column counts
+@each $breakpoint, $value in tokens.$creo-breakpoints {
+  @if $value > 0 {
+    @media (min-width: $value) {
+      .l-#{$breakpoint}\:grid-1 { grid-template-columns: 1fr; }
+      .l-#{$breakpoint}\:grid-2 { grid-template-columns: repeat(2, 1fr); }
+      .l-#{$breakpoint}\:grid-3 { grid-template-columns: repeat(3, 1fr); }
+      .l-#{$breakpoint}\:grid-4 { grid-template-columns: repeat(4, 1fr); }
+      .l-#{$breakpoint}\:grid-6 { grid-template-columns: repeat(6, 1fr); }
+      .l-#{$breakpoint}\:grid-12 { grid-template-columns: repeat(12, 1fr); }
+      
+      // Responsive column spanning
+      .l-#{$breakpoint}\:col-span-1 { grid-column: span 1; }
+      .l-#{$breakpoint}\:col-span-2 { grid-column: span 2; }
+      .l-#{$breakpoint}\:col-span-3 { grid-column: span 3; }
+      .l-#{$breakpoint}\:col-span-4 { grid-column: span 4; }
+      .l-#{$breakpoint}\:col-span-6 { grid-column: span 6; }
+      .l-#{$breakpoint}\:col-span-full { grid-column: 1 / -1; }
+      
+      // Responsive gaps
+      .l-#{$breakpoint}\:gap-sm { gap: tokens.$creo-space-sm; }
+      .l-#{$breakpoint}\:gap-md { gap: tokens.$creo-space-md; }
+      .l-#{$breakpoint}\:gap-lg { gap: tokens.$creo-space-lg; }
+      .l-#{$breakpoint}\:gap-xl { gap: tokens.$creo-space-xl; }
+    }
+  }
+}
+
+// =============================================================================
+// Flexbox Fallback Grid (for older browsers)
+// =============================================================================
+
+.l-flex-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: calc(-#{tokens.$creo-grid-gap} / 2);
+  margin-right: calc(-#{tokens.$creo-grid-gap} / 2);
+  
+  > * {
+    padding-left: calc(#{tokens.$creo-grid-gap} / 2);
+    padding-right: calc(#{tokens.$creo-grid-gap} / 2);
+    margin-bottom: tokens.$creo-grid-gap;
+  }
+}
+
+// Flexbox grid columns
+.l-flex-col {
+  flex: 1;
+  
+  // Fractional widths
+  &--1\/2 { flex: 0 0 50%; }
+  &--1\/3 { flex: 0 0 33.333333%; }
+  &--2\/3 { flex: 0 0 66.666667%; }
+  &--1\/4 { flex: 0 0 25%; }
+  &--3\/4 { flex: 0 0 75%; }
+  &--1\/6 { flex: 0 0 16.666667%; }
+  &--5\/6 { flex: 0 0 83.333333%; }
+  
+  // Responsive flexbox columns
+  @media (min-width: tokens.creo-breakpoint(sm)) {
+    &--sm-1\/2 { flex: 0 0 50%; }
+    &--sm-1\/3 { flex: 0 0 33.333333%; }
+    &--sm-2\/3 { flex: 0 0 66.666667%; }
+  }
+  
+  @media (min-width: tokens.creo-breakpoint(md)) {
+    &--md-1\/2 { flex: 0 0 50%; }
+    &--md-1\/3 { flex: 0 0 33.333333%; }
+    &--md-2\/3 { flex: 0 0 66.666667%; }
+    &--md-1\/4 { flex: 0 0 25%; }
+    &--md-3\/4 { flex: 0 0 75%; }
+  }
+}
+
+// =============================================================================
+// Grid Debugging
+// =============================================================================
+
+// Debug mode to visualize grid
+.l-grid--debug {
+  > * {
+    outline: 1px solid rgba(255, 0, 0, 0.3);
+    background-color: rgba(255, 0, 0, 0.1);
+  }
+}
+
+// =============================================================================
+// Print Optimizations
+// =============================================================================
+
+@media print {
+  .l-grid,
+  .l-grid--2,
+  .l-grid--3,
+  .l-grid--4,
+  .l-grid--6 {
+    display: block;
+    
+    > * {
+      margin-bottom: 1rem;
+      break-inside: avoid;
+    }
+  }
+  
+  .l-grid--cards,
+  .l-grid--masonry,
+  .l-grid--testimonials,
+  .l-grid--team {
+    display: block;
+    
+    > * {
+      margin-bottom: 1.5rem;
+      break-inside: avoid;
+    }
+  }
+}
+
+// =============================================================================
+// Usage Examples & Documentation
+// =============================================================================
+
+/*
+Basic Grid Usage:
+
+Equal Columns:
+<div class="l-grid l-grid--3">
+  <div>Column 1</div>
+  <div>Column 2</div>
+  <div>Column 3</div>
+</div>
+
+Auto-Fit Cards:
+<div class="l-grid l-grid--cards">
+  <div class="c-card">Card 1</div>
+  <div class="c-card">Card 2</div>
+  <div class="c-card">Card 3</div>
+</div>
+
+Sidebar Layout:
+<div class="l-grid l-grid--sidebar">
+  <aside>Sidebar content</aside>
+  <main>Main content</main>
+</div>
+
+Hero Section:
+<div class="l-grid l-grid--hero l-grid--items-center">
+  <div>
+    <h1>Hero Title</h1>
+    <p>Hero description</p>
+  </div>
+  <div>
+    <img src="hero-image.jpg" alt="Hero">
+  </div>
+</div>
+
+Feature Grid:
+<div class="l-grid l-grid--feature l-grid--gap-lg">
+  <div class="c-feature">Feature 1</div>
+  <div class="c-feature">Feature 2</div>
+  <div class="c-feature">Feature 3</div>
+  <div class="c-feature l-col-span-full">Full-width feature</div>
+</div>
+
+Team Grid:
+<div class="l-grid l-grid--team">
+  <div class="c-team-member">Member 1</div>
+  <div class="c-team-member">Member 2</div>
+  <div class="c-team-member">Member 3</div>
+  <div class="c-team-member">Member 4</div>
+</div>
+
+Testimonials:
+<div class="l-grid l-grid--testimonials l-grid--gap-xl">
+  <blockquote class="c-testimonial">Testimonial 1</blockquote>
+  <blockquote class="c-testimonial">Testimonial 2</blockquote>
+  <blockquote class="c-testimonial">Testimonial 3</blockquote>
+</div>
+
+Responsive Spanning:
+<div class="l-grid l-grid--4">
+  <div class="l-col-span-full l-md:col-span-2">Responsive item</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+  <div>Item 4</div>
+</div>
+*/

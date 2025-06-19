@@ -1,0 +1,305 @@
+// =============================================================================
+// Creo CSS Framework
+// =============================================================================
+// A modern, semantic, CSS-first frontend framework for content-focused websites
+// Version: 1.0.0
+// License: MIT
+// Website: https://creo-framework.dev
+// Repository: https://github.com/creo-framework/creo
+
+/*!
+ * Creo CSS Framework v1.0.0
+ * https://creo-framework.dev
+ * 
+ * Copyright (c) 2025 Creo Framework
+ * Licensed under MIT (https://github.com/creo-framework/creo/blob/main/LICENSE)
+ * 
+ * Design-forward structure, with developer-grade control.
+ */
+
+// =============================================================================
+// Framework Configuration
+// =============================================================================
+
+// Allow customization of design tokens through Sass module system
+// Usage: @use 'creo' with ($creo-colors: $custom-colors);
+
+// Default configuration (can be overridden)
+$creo-config: (
+  // Include utilities (set to false to reduce file size)
+  include-utilities: true,
+  
+  // Include responsive utilities (set to false for smaller builds)
+  include-responsive-utilities: true,
+  
+  // Include dark theme (set to false if not needed)
+  include-dark-theme: true,
+  
+  // Include all layout components
+  include-layout: true,
+  
+  // Include all typography styles
+  include-typography: true,
+) !default;
+
+// =============================================================================
+// ALL IMPORTS MUST COME FIRST - NO CSS RULES BEFORE @use STATEMENTS
+// =============================================================================
+
+// 1. Design Tokens - Must be first for other modules to use
+@use 'core/tokens';
+
+// 2. CSS Reset - Establishes consistent base styles
+@use 'core/reset';
+
+// 3. Typography System - Base typography and semantic text styles
+@use 'core/typography';
+
+// 4. Layout System
+@use 'layout/containers';
+@use 'layout/grid';
+@use 'layout/sections';
+
+// 5. Utility System
+@use 'utilities/spacing';
+@use 'utilities/text';
+@use 'utilities/responsive';
+
+// 6. Theme System
+@use 'themes/dark';
+
+// 7. Components
+@use 'components/button';
+@use 'components/nav';
+@use 'components/hero';
+
+// =============================================================================
+// Framework Metadata (CSS Rules - MUST come after all @use statements)
+// =============================================================================
+
+// Add framework version info as CSS custom property
+:root {
+  --creo-version: "1.0.0";
+  --creo-framework: "Creo CSS";
+}
+
+// =============================================================================
+// Usage Examples & Documentation
+// =============================================================================
+
+/*
+# Creo CSS Framework
+
+A modern, semantic, CSS-first frontend framework designed for content-focused 
+websites like portfolios, marketing pages, blogs, and SaaS homepages.
+
+## Core Philosophy
+
+1. **Structure First** - Websites should be structured and designed before styled
+2. **Progressive by Default** - Modern standards, responsive, accessible
+3. **Modular, Not Monolithic** - Import only what you need
+
+## Basic Usage
+
+```scss
+// Import the complete framework
+@use 'creo';
+```
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>My Creo Site</title>
+  <link rel="stylesheet" href="creo.css">
+</head>
+<body>
+  <main>
+    <section class="l-section l-section--hero">
+      <div class="l-container l-container--md">
+        <h1 class="c-display u-text-center u-mb-lg">Welcome</h1>
+        <p class="c-lead u-text-center u-text-secondary u-mb-xl">
+          Your amazing content starts here
+        </p>
+        <div class="u-flex u-justify-center">
+          <button class="c-button c-button--primary">Get Started</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
+```
+
+## Customization
+
+```scss
+// Customize design tokens
+@use 'creo' with (
+  $creo-colors: (
+    primary: #1a202c,
+    accent: #4299e1,
+    // ... your custom colors
+  ),
+  $creo-spacing: (
+    xs: 0.125rem,
+    sm: 0.25rem,
+    // ... your custom spacing
+  ),
+  $creo-font-family-base: ('Inter', sans-serif)
+);
+```
+
+## Lean Build (Smaller File Size)
+
+```scss
+// Minimal build without utilities
+@use 'creo' with (
+  $creo-config: (
+    include-utilities: false,
+    include-responsive-utilities: false,
+    include-dark-theme: false,
+  )
+);
+```
+
+## Selective Module Import
+
+```scss
+// Import only what you need
+@use 'creo/core/tokens';
+@use 'creo/core/reset';
+@use 'creo/core/typography';
+@use 'creo/layout/containers';
+@use 'creo/layout/grid';
+```
+
+## Component Import
+
+```scss
+// Components are separate for tree-shaking
+@use 'creo'; // Base framework
+@use 'creo/components/button';
+@use 'creo/components/card';
+@use 'creo/components/modal';
+```
+
+## Class Naming Convention
+
+Creo uses a BEM-lite naming convention:
+
+- `.l-*` - Layout classes (container, grid, section)
+- `.c-*` - Component classes (button, card, modal)
+- `.u-*` - Utility classes (margin, text, display)
+
+Examples:
+- `.l-container` - Layout container
+- `.l-grid--3` - 3-column grid layout
+- `.c-button--primary` - Primary button component
+- `.u-text-center` - Center text utility
+- `.u-md:flex-row` - Responsive utility (medium screens+)
+
+## Browser Support
+
+- Modern browsers (Chrome 88+, Firefox 85+, Safari 14+, Edge 88+)
+- CSS Grid and Flexbox support required
+- CSS Custom Properties support required
+- Graceful degradation for older browsers
+
+## Accessibility
+
+Creo is built with accessibility in mind:
+
+- WCAG 2.1 AA compliant color contrasts
+- Semantic HTML structure encouraged
+- Focus management and keyboard navigation
+- Screen reader friendly
+- Respects user preferences (reduced motion, high contrast)
+
+## Performance
+
+- Lightweight and modular architecture
+- Tree-shakeable modules
+- Optimized for modern CSS features
+- Minimal JavaScript required (optional components only)
+
+## Getting Started
+
+1. Install via npm: `npm install @creo/css`
+2. Import in your Sass: `@use '@creo/css'`
+3. Or download compiled CSS from GitHub releases
+4. Start building with semantic HTML and Creo classes
+
+## Examples
+
+### Portfolio Hero Section
+```html
+<section class="l-section l-section--hero u-text-center">
+  <div class="l-container l-container--md">
+    <h1 class="c-display u-mb-lg">John Designer</h1>
+    <p class="c-lead u-text-secondary u-mb-xl">
+      Creating beautiful digital experiences
+    </p>
+    <div class="u-flex u-justify-center u-gap-md">
+      <button class="c-button c-button--primary">View Portfolio</button>
+      <a href="/contact" class="c-button c-button--secondary">Hire Me</a>
+    </div>
+  </div>
+</section>
+```
+
+### Marketing Features Grid
+```html
+<section class="l-section">
+  <div class="l-container">
+    <h2 class="u-text-center u-text-3xl u-font-bold u-mb-xl">
+      Why Choose Us
+    </h2>
+    <div class="l-grid l-grid--feature u-gap-lg">
+      <div class="u-text-center">
+        <h3 class="u-text-xl u-font-semibold u-mb-sm">Fast</h3>
+        <p class="u-text-secondary">Lightning quick performance</p>
+      </div>
+      <div class="u-text-center">
+        <h3 class="u-text-xl u-font-semibold u-mb-sm">Secure</h3>
+        <p class="u-text-secondary">Bank-level security</p>
+      </div>
+      <div class="u-text-center">
+        <h3 class="u-text-xl u-font-semibold u-mb-sm">Reliable</h3>
+        <p class="u-text-secondary">99.9% uptime guarantee</p>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+### Blog Article Layout
+```html
+<article class="l-container l-container--prose u-content-spacing">
+  <header class="u-text-center u-mb-xl">
+    <h1 class="u-text-4xl u-font-bold u-mb-md">Article Title</h1>
+    <p class="c-lead u-text-secondary">Engaging subtitle</p>
+  </header>
+  
+  <div class="u-text-base u-leading-relaxed">
+    <p>Article content with natural flow and spacing...</p>
+    <h2>Section Heading</h2>
+    <p>More content...</p>
+  </div>
+</article>
+```
+
+## Learn More
+
+- Documentation: https://creo-framework.dev/docs
+- Examples: https://creo-framework.dev/examples  
+- GitHub: https://github.com/creo-framework/creo
+- Community: https://creo-framework.dev/community
+
+---
+
+Built with ❤️ for the modern web.
+*/

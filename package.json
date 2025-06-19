@@ -1,0 +1,74 @@
+{
+  "name": "@creo-framework/creo",
+  "version": "1.0.0",
+  "description": "CSS-first frontend framework for modern, accessible, and performance-focused websites.",
+  "main": "dist/creo.css",
+  "sass": "scss/creo.scss",
+  "style": "dist/creo.css",
+  "files": [
+    "dist/",
+    "scss/"
+  ],
+  "scripts": {
+    "build": "node build.js",
+    "build:expanded": "node build.js expanded",
+    "build:compressed": "node build.js compressed", 
+    "build:lean": "node build.js lean",
+    "build:all": "node build.js all",
+    "clean": "node build.js clean",
+    "watch": "node build.js watch",
+    "dev": "node build.js clean && node build.js watch",
+    "prepublishOnly": "node build.js all",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "css",
+    "css-framework",
+    "frontend",
+    "responsive",
+    "accessibility",
+    "dark-mode",
+    "grid",
+    "components",
+    "utilities",
+    "design-system"
+  ],
+  "author": "Codedgar",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/creo-framework/creo.git"
+  },
+  "homepage": "https://creo-framework.dev",
+  "bugs": {
+    "url": "https://github.com/creo-framework/creo/issues"
+  },
+  "exports": {
+    ".": {
+      "sass": "./scss/creo.scss",
+      "style": "./dist/creo.css",
+      "default": "./dist/creo.css"
+    },
+    "./lean": {
+      "sass": "./scss/creo.lean.scss",
+      "style": "./dist/creo.lean.css"
+    },
+    "./core/*": "./scss/core/*",
+    "./layout/*": "./scss/layout/*",
+    "./utilities/*": "./scss/utilities/*",
+    "./themes/*": "./scss/themes/*",
+    "./components/*": "./scss/components/*"
+  },
+  "devDependencies": {
+    "sass": "^1.70.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "not dead",
+    "not ie 11"
+  ]
+}

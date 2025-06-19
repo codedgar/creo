@@ -1,0 +1,416 @@
+// =============================================================================
+// Creo Typography System
+// =============================================================================
+// Comprehensive typography system with semantic text styles
+// Part of Creo CSS Framework - core/_typography.scss
+
+@use 'sass:map';
+@use 'tokens';
+
+// =============================================================================
+// Base Typography
+// =============================================================================
+
+body {
+  font-family: tokens.$creo-font-family-base;
+  font-size: map.get(tokens.$creo-font-sizes, base);
+  line-height: tokens.$creo-line-height-base;
+  color: tokens.$creo-color-text-primary;
+  font-weight: tokens.$creo-font-weight-normal;
+  
+  // Optimize text rendering
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+// =============================================================================
+// Semantic Typography Classes
+// =============================================================================
+
+// Display text for hero sections and large headings
+.c-display {
+  font-family: tokens.$creo-font-family-base;
+  font-size: map.get(tokens.$creo-font-sizes, 4xl);
+  font-weight: tokens.$creo-font-weight-extrabold;
+  line-height: tokens.$creo-line-height-none;
+  color: tokens.$creo-color-text-heading;
+  letter-spacing: -0.025em;
+  
+  @include tokens.creo-breakpoint(sm) {
+    font-size: map.get(tokens.$creo-font-sizes, 5xl);
+  }
+  
+  @include tokens.creo-breakpoint(md) {
+    font-size: map.get(tokens.$creo-font-sizes, 6xl);
+  }
+  
+  @include tokens.creo-breakpoint(lg) {
+    font-size: map.get(tokens.$creo-font-sizes, 7xl);
+  }
+}
+
+// Lead paragraph text for introductions
+.c-lead {
+  font-size: map.get(tokens.$creo-font-sizes, lg);
+  line-height: tokens.$creo-line-height-relaxed;
+  color: tokens.$creo-color-text-secondary;
+  font-weight: tokens.$creo-font-weight-normal;
+  
+  @include tokens.creo-breakpoint(md) {
+    font-size: map.get(tokens.$creo-font-sizes, xl);
+  }
+}
+
+// Small text for captions, footnotes
+.c-small {
+  font-size: map.get(tokens.$creo-font-sizes, sm);
+  line-height: tokens.$creo-line-height-snug;
+  color: tokens.$creo-color-text-muted;
+}
+
+// Large text for emphasis
+.c-large {
+  font-size: map.get(tokens.$creo-font-sizes, lg);
+  line-height: tokens.$creo-line-height-relaxed;
+  
+  @include tokens.creo-breakpoint(md) {
+    font-size: map.get(tokens.$creo-font-sizes, xl);
+  }
+}
+
+// =============================================================================
+// Heading System
+// =============================================================================
+
+// Heading styles with consistent hierarchy
+h1, .c-h1 {
+  font-family: tokens.$creo-font-family-base;
+  font-size: map.get(tokens.$creo-font-sizes, 3xl);
+  font-weight: tokens.$creo-font-weight-bold;
+  line-height: tokens.$creo-line-height-tight;
+  color: tokens.$creo-color-text-heading;
+  margin-bottom: tokens.$creo-space-md;
+  
+  @include tokens.creo-breakpoint(md) {
+    font-size: map.get(tokens.$creo-font-sizes, 4xl);
+  }
+}
+
+h2, .c-h2 {
+  font-family: tokens.$creo-font-family-base;
+  font-size: map.get(tokens.$creo-font-sizes, 2xl);
+  font-weight: tokens.$creo-font-weight-semibold;
+  line-height: tokens.$creo-line-height-tight;
+  color: tokens.$creo-color-text-heading;
+  margin-bottom: tokens.$creo-space-sm;
+  
+  @include tokens.creo-breakpoint(md) {
+    font-size: map.get(tokens.$creo-font-sizes, 3xl);
+  }
+}
+
+h3, .c-h3 {
+  font-family: tokens.$creo-font-family-base;
+  font-size: map.get(tokens.$creo-font-sizes, xl);
+  font-weight: tokens.$creo-font-weight-semibold;
+  line-height: tokens.$creo-line-height-snug;
+  color: tokens.$creo-color-text-heading;
+  margin-bottom: tokens.$creo-space-sm;
+  
+  @include tokens.creo-breakpoint(md) {
+    font-size: map.get(tokens.$creo-font-sizes, 2xl);
+  }
+}
+
+h4, .c-h4 {
+  font-family: tokens.$creo-font-family-base;
+  font-size: map.get(tokens.$creo-font-sizes, lg);
+  font-weight: tokens.$creo-font-weight-semibold;
+  line-height: tokens.$creo-line-height-snug;
+  color: tokens.$creo-color-text-heading;
+  margin-bottom: tokens.$creo-space-xs;
+  
+  @include tokens.creo-breakpoint(md) {
+    font-size: map.get(tokens.$creo-font-sizes, xl);
+  }
+}
+
+h5, .c-h5 {
+  font-family: tokens.$creo-font-family-base;
+  font-size: map.get(tokens.$creo-font-sizes, base);
+  font-weight: tokens.$creo-font-weight-semibold;
+  line-height: tokens.$creo-line-height-snug;
+  color: tokens.$creo-color-text-heading;
+  margin-bottom: tokens.$creo-space-xs;
+  
+  @include tokens.creo-breakpoint(md) {
+    font-size: map.get(tokens.$creo-font-sizes, lg);
+  }
+}
+
+h6, .c-h6 {
+  font-family: tokens.$creo-font-family-base;
+  font-size: map.get(tokens.$creo-font-sizes, sm);
+  font-weight: tokens.$creo-font-weight-semibold;
+  line-height: tokens.$creo-line-height-snug;
+  color: tokens.$creo-color-text-heading;
+  margin-bottom: tokens.$creo-space-xs;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  
+  @include tokens.creo-breakpoint(md) {
+    font-size: map.get(tokens.$creo-font-sizes, base);
+  }
+}
+
+// =============================================================================
+// Text Content Styles
+// =============================================================================
+
+// Paragraph styles
+p {
+  line-height: tokens.$creo-line-height-relaxed;
+  color: tokens.$creo-color-text-primary;
+  margin-bottom: tokens.$creo-space-md;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Links
+a {
+  color: tokens.$creo-color-link;
+  text-decoration: underline;
+  text-underline-offset: 0.125em;
+  transition: color 150ms ease-in-out;
+  
+  &:hover, &:focus {
+    color: tokens.$creo-color-link-hover;
+  }
+  
+  &:focus {
+    outline: 2px solid tokens.$creo-color-focus;
+    outline-offset: 2px;
+  }
+}
+
+// Strong and emphasis
+strong, b {
+  font-weight: tokens.$creo-font-weight-semibold;
+  color: tokens.$creo-color-text-heading;
+}
+
+em, i {
+  font-style: italic;
+}
+
+// Small text
+small {
+  font-size: map.get(tokens.$creo-font-sizes, sm);
+  color: tokens.$creo-color-text-muted;
+}
+
+// Blockquote styling
+blockquote {
+  font-size: map.get(tokens.$creo-font-sizes, lg);
+  font-style: italic;
+  line-height: tokens.$creo-line-height-relaxed;
+  color: tokens.$creo-color-text-secondary;
+  margin: tokens.$creo-space-lg 0;
+  padding: tokens.$creo-space-md 0;
+  border-left: 4px solid tokens.$creo-color-link;
+  padding-left: tokens.$creo-space-lg;
+  
+  @include tokens.creo-breakpoint(md) {
+    font-size: map.get(tokens.$creo-font-sizes, xl);
+    margin: tokens.$creo-space-xl 0;
+  }
+  
+  p:last-child {
+    margin-bottom: 0;
+  }
+  
+  cite {
+    display: block;
+    font-size: map.get(tokens.$creo-font-sizes, sm);
+    font-style: normal;
+    color: tokens.$creo-color-text-muted;
+    margin-top: tokens.$creo-space-sm;
+    
+    &::before {
+      content: "— ";
+    }
+  }
+}
+
+// Code and preformatted text
+code {
+  font-family: tokens.$creo-font-family-mono;
+  font-size: 0.875em;
+  color: tokens.$creo-color-link;
+  background-color: tokens.$creo-color-surface;
+  padding: 0.125rem 0.25rem;
+  border-radius: tokens.$creo-border-radius-sm;
+  border: 1px solid tokens.$creo-color-border-light;
+}
+
+pre {
+  font-family: tokens.$creo-font-family-mono;
+  font-size: map.get(tokens.$creo-font-sizes, sm);
+  line-height: tokens.$creo-line-height-relaxed;
+  color: tokens.$creo-color-text-primary;
+  background-color: tokens.$creo-color-surface;
+  padding: tokens.$creo-space-md;
+  border-radius: tokens.$creo-border-radius-md;
+  border: 1px solid tokens.$creo-color-border;
+  overflow-x: auto;
+  margin: tokens.$creo-space-md 0;
+  
+  code {
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+  }
+}
+
+// =============================================================================
+// List Styles
+// =============================================================================
+
+// List styles
+ol, ul {
+  margin: tokens.$creo-space-md 0;
+  padding-left: tokens.$creo-space-lg;
+  
+  li {
+    margin-bottom: tokens.$creo-space-xs;
+    line-height: tokens.$creo-line-height-relaxed;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  // Nested lists
+  ol, ul {
+    margin: tokens.$creo-space-xs 0;
+  }
+}
+
+// Description lists
+dl {
+  margin: tokens.$creo-space-md 0;
+  
+  dt {
+    font-weight: tokens.$creo-font-weight-semibold;
+    color: tokens.$creo-color-text-heading;
+    margin-bottom: tokens.$creo-space-xs;
+  }
+  
+  dd {
+    margin-bottom: tokens.$creo-space-sm;
+    margin-left: tokens.$creo-space-md;
+    color: tokens.$creo-color-text-secondary;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// =============================================================================
+// Table Styles
+// =============================================================================
+
+// Table styles
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: tokens.$creo-space-lg 0;
+  font-size: map.get(tokens.$creo-font-sizes, sm);
+  
+  @include tokens.creo-breakpoint(md) {
+    font-size: map.get(tokens.$creo-font-sizes, base);
+  }
+}
+
+th, td {
+  text-align: left;
+  padding: tokens.$creo-space-sm tokens.$creo-space-md;
+  border-bottom: 1px solid tokens.$creo-color-border;
+}
+
+th {
+  font-weight: tokens.$creo-font-weight-semibold;
+  color: tokens.$creo-color-text-heading;
+  background-color: tokens.$creo-color-surface;
+}
+
+tbody tr:hover {
+  background-color: tokens.$creo-color-surface;
+}
+
+// =============================================================================
+// Horizontal Rule
+// =============================================================================
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: tokens.$creo-color-border;
+  margin: tokens.$creo-space-xl 0;
+}
+
+// =============================================================================
+// Mark and Highlight
+// =============================================================================
+
+mark {
+  background-color: #fef3c7;
+  color: #92400e;
+  padding: 0.125em 0.25em;
+  border-radius: 0.125rem;
+}
+
+// =============================================================================
+// Address and Contact Info
+// =============================================================================
+
+address {
+  font-style: normal;
+  line-height: tokens.$creo-line-height-relaxed;
+  margin-bottom: tokens.$creo-space-md;
+}
+
+// =============================================================================
+// Content Spacing Utility
+// =============================================================================
+
+// Apply consistent spacing to content flow
+.u-content-spacing {
+  > * + * {
+    margin-top: tokens.$creo-space-md;
+  }
+  
+  > h1 + *,
+  > h2 + *,
+  > h3 + *,
+  > h4 + *,
+  > h5 + *,
+  > h6 + * {
+    margin-top: tokens.$creo-space-sm;
+  }
+  
+  > * + h1,
+  > * + h2,
+  > * + h3,
+  > * + h4,
+  > * + h5,
+  > * + h6 {
+    margin-top: tokens.$creo-space-xl;
+  }
+}

@@ -1,0 +1,41 @@
+// =============================================================================
+// Creo CSS Framework - Lean Build
+// =============================================================================
+// Minimal build for maximum performance
+// Includes only essential modules for basic websites
+
+/*!
+ * Creo CSS Framework v1.0.0 (Lean Build)
+ * https://creo-framework.dev
+ * 
+ * Copyright (c) 2025 Creo Framework
+ * Licensed under MIT
+ * 
+ * Lean build: ~60% smaller than full framework
+ */
+
+// =============================================================================
+// Essential Imports Only
+// =============================================================================
+
+// Core essentials (required)
+@use 'core/tokens';
+@use 'core/reset';
+@use 'core/typography';
+
+// Essential layout (minimal responsive system)
+@use 'layout/containers';
+@use 'layout/sections';
+
+// Dark theme support (lightweight theming)
+@use 'themes/dark';
+
+// =============================================================================
+// Lean Build Metadata
+// =============================================================================
+
+:root {
+  --creo-version: "1.0.0-lean";
+  --creo-framework: "Creo CSS Lean";
+  --creo-build-type: "lean";
+}
